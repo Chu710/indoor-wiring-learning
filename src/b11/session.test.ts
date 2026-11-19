@@ -25,6 +25,15 @@ describe('local practice records', () => {
     expect(loadDraft(unavailable)).toBeNull();
     expect(saveDraft(unavailable, { questionId: 'x', startedAt: 1, wires: [], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 })).toBe(false);
   });
+  it('preserves an earlier question draft when the exercise changes', () => {
+    const storage = makeStorage();
+    const oldDraft = { questionId: 'b11-q2-motor-control', startedAt: 100, wires: [], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 };
+    const newDraft = { ...oldDraft, questionId: 'b11-q2-control-circuit-v2' };
+    saveDraft(storage, oldDraft);
+    expect(saveDraft(storage, newDraft)).toBe(true);
+    expect(storage.getItem('b11-draft-legacy-v1')).toBe(JSON.stringify(oldDraft));
+    expect(loadDraft(storage)).toEqual(newDraft);
+  });
   it('does not restore malformed wire entries', () => {
     const storage = makeStorage();
     storage.setItem('b11-draft-v1', JSON.stringify({ questionId: 'b11-q2-motor-control', startedAt: 1, wires: [null], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 }));

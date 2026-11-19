@@ -38,7 +38,7 @@ export function TaskPanel(props: Props) {
   const ready = checked && diagnostics.length === 0;
   return <aside className="task-panel" aria-label="任務面板">
     <h2>練習步驟</h2>
-    <ol><li>選線色、連接端子</li><li>檢查所有電氣節點</li><li>執行馬達控制測試</li></ol>
+    <ol><li>選線色、連接控制端子</li><li>檢查控制迴路接線</li><li>操作控制狀態示範</li></ol>
     <h3>分段練習｜第 {segmentNumber} / {segmentCount} 段</h3>
     <p className="segment-description">{segment.title}<br />{segment.description}</p>
     <div className="actions"><button className="primary" onClick={() => props.onCheckSegment?.()}>檢查本段接線</button>{props.segmentComplete && segmentNumber < segmentCount && <button onClick={() => props.onNextSegment?.()}>進入下一段</button>}</div>
@@ -51,7 +51,8 @@ export function TaskPanel(props: Props) {
     </div>}
     {answerVisible && <p className="answer-note">參考接線已顯示於工作區，請對照每一組電氣節點。教學端子號碼需依現場器材確認。</p>}
     <h3>控制狀態示範</h3>
-    <p className={`motor-status ${motor.overloaded ? 'danger' : ''}`}>馬達：{motor.overloaded ? '過載跳脫' : motor.direction === 'forward' ? '正轉' : motor.direction === 'reverse' ? '反轉' : '停止'}</p>
+    <p>按鈕依預設邏輯切換畫面狀態，尚未依你接的線計算通電結果。</p>
+    <p className={`motor-status ${motor.overloaded ? 'danger' : ''}`}>預期馬達狀態：{motor.overloaded ? '過載跳脫' : motor.direction === 'forward' ? '正轉' : motor.direction === 'reverse' ? '反轉' : '停止'}</p>
     <p>MCF：{motor.mcf ? '吸合' : '釋放'}　MCR：{motor.mcr ? '吸合' : '釋放'}</p>
     <p>R1：{motor.lamps.forward ? '亮' : '滅'}　R2：{motor.lamps.reverse ? '亮' : '滅'}　G：{motor.lamps.stopped ? '亮' : '滅'}</p>
     <p>BZ：{motor.buzzer ? '鳴響' : '靜音'}</p>

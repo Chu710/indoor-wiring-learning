@@ -42,8 +42,8 @@ describe('workspace wiring', () => {
     const onMovePart = vi.fn();
     render(<Workspace question={b11Question} wires={[]} color="red" onAddWire={vi.fn()} onRemoveWire={vi.fn()} onMovePart={onMovePart} />);
     const stage = screen.getByLabelText('元件放置區');
-    fireEvent.drop(stage, { dataTransfer: { getData: () => 'motor' }, clientX: 300, clientY: 250 });
-    expect(onMovePart).toHaveBeenCalledWith('motor', expect.any(Number), expect.any(Number));
+    fireEvent.drop(stage, { dataTransfer: { getData: () => 'mcf' }, clientX: 300, clientY: 250 });
+    expect(onMovePart).toHaveBeenCalledWith('mcf', expect.any(Number), expect.any(Number));
   });
   it('creates one wire when the pointer is dragged between terminals', () => {
     const onAddWire = vi.fn();

@@ -12,7 +12,7 @@ import './styles.css';
 
 export default function App() {
   const [storage] = useState(() => getBrowserStorage(() => window.localStorage));
-  const [restored] = useState(() => storage ? loadDraft(storage) : null);
+  const [restored] = useState(() => { const draft = storage ? loadDraft(storage) : null; return draft?.questionId === b11Question.id ? draft : null; });
   const [question, setQuestion] = useState<B11Question>(() => ({ ...b11Question, parts: b11Question.parts.map((part) => ({ ...part, ...(restored?.positions[part.id] ?? {}) })) }));
   const [wires, setWires] = useState<Wire[]>(restored?.wires ?? []);
   const [color, setColor] = useState<WireColor>('red');
@@ -77,7 +77,7 @@ export default function App() {
     setWires(referenceWires); setAnswerVisible(true); resetCheck();
   };
   return <main className="app-shell">
-    <header><div><p>室內配線丙級｜術科介面示範</p><h1>{question.title}</h1><small>目前內建接線尚未依官方 B11 第二題完整驗證；請勿用於實體配線。</small></div><div className="header-meta"><span>{completed ? '示範完成' : '介面測試中'}</span><strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong></div></header>
+    <header><div><p>室內配線丙級｜控制迴路練習</p><h1>{question.title}</h1><small>依官方 B11 第二題控制電路建立；主電路、馬達端子與接地尚未納入評分，請勿用於實體配線。</small></div><div className="header-meta"><span>{completed ? '示範完成' : '控制練習中'}</span><strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong></div></header>
     <details className="official-schematic"><summary>查看官方 B11 第二題電路圖</summary><p>來源：勞動部 007003B11，第二題附圖（二），印刷頁 20。圖中包含三組主接點、接線端子台、馬達繞組與控制迴路；下方互動原型仍在依此圖修正。</p><img src="/b11-official-schematic.png" alt="官方 B11 第二題單相感應電動機正逆轉控制電路圖" /></details>
     <PartsPanel question={question} />
     <Workspace question={question} wires={wires} color={color} answerVisible={answerVisible} onAddWire={addWire} onRemoveWire={(id) => { setWires((existing) => existing.filter((wire) => wire.id !== id)); resetCheck(); }} onMovePart={(id, x, y) => setQuestion((existing) => ({ ...existing, parts: existing.parts.map((part) => part.id === id ? { ...part, x, y } : part) }))} />

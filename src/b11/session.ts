@@ -4,6 +4,7 @@ import type { MotorAction } from './simulate';
 const draftKey = 'b11-draft-v1';
 const recordsKey = 'b11-records-v1';
 const corruptDraftKey = 'b11-draft-corrupt-v1';
+const legacyDraftKey = 'b11-draft-legacy-v1';
 
 export interface Draft {
   questionId: string;
@@ -40,7 +41,9 @@ export function saveDraft(storage: Storage, draft: Draft): boolean {
   try {
     const existing = storage.getItem(draftKey);
     if (existing) {
-      try { loadDraft(storage); if (loadDraft(storage) === null) storage.setItem(corruptDraftKey, existing); } catch { return false; }
+      const previous = loadDraft(storage);
+      if (previous === null) storage.setItem(corruptDraftKey, existing);
+      else if (previous.questionId !== draft.questionId) storage.setItem(legacyDraftKey, existing);
     }
     storage.setItem(draftKey, JSON.stringify(draft)); return true;
   } catch { return false; }
