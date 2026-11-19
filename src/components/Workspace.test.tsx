@@ -54,4 +54,16 @@ describe('workspace wiring', () => {
     expect(onAddWire).toHaveBeenCalledTimes(1);
     expect(screen.getByRole('button', { name: 'nfb.L1' }).className).not.toContain('active');
   });
+  it('shows one selected connection at a time and names its endpoints in Chinese', () => {
+    const wires: Wire[] = [
+      { id: 'w1', from: 'supply.A', to: 'nfb.L1', color: 'red', createdAt: 1 },
+      { id: 'w2', from: 'supply.B', to: 'nfb.L2', color: 'white', createdAt: 2 },
+    ];
+    render(<Workspace question={b11Question} wires={wires} color="red" onAddWire={vi.fn()} onRemoveWire={vi.fn()} onMovePart={vi.fn()} />);
+    expect(screen.getByLabelText('電線').querySelectorAll('g[role="button"]')).toHaveLength(1);
+    fireEvent.click(screen.getByRole('button', { name: /查看第 1 條線/ }));
+    expect(screen.getAllByText(/單相 220V 電源 第 1 排左端 → 無熔絲開關 NFB 第 1 排左端/)).toHaveLength(2);
+    fireEvent.click(screen.getByRole('button', { name: '顯示全部電線' }));
+    expect(screen.getByLabelText('電線').querySelectorAll('g[role="button"]')).toHaveLength(2);
+  });
 });

@@ -41,8 +41,18 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .terminal span { position: absolute; top: -2px; left: 17px; background: #e8f1fa; border-radius: 3px; padding: 0 2px; font-size: 11px; white-space: nowrap; }
 .terminal:nth-child(odd) span { left: auto; right: 17px; }
 .terminal.active { outline: 4px solid #52e1d3; }
+.terminal.focused-terminal { outline: 5px solid #f7d473; box-shadow: 0 0 0 8px #f7d47355; }
 .wire-list { margin-top: 8px; display: flex; gap: 5px; overflow-x: auto; min-height: 38px; }
 .wire-list button { flex: 0 0 auto; font-size: 12px; padding: 4px 7px; }
+.wire-view-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #f7d473; font-size: 14px; }
+.wire-view-controls strong { flex: 1; }
+.wire-view-controls button { white-space: nowrap; font-size: 13px; }
+.wire-list { display: grid; gap: 4px; overflow-x: hidden; overflow-y: auto; max-height: 210px; padding-right: 4px; }
+.wire-list-row { display: flex; gap: 5px; min-width: 0; }
+.wire-list-row.active .wire-focus { border-color: #f7d473; background: #3a4b5c; }
+.wire-list-row .wire-focus { flex: 1; min-width: 0; text-align: left; white-space: normal; }
+.wire-list-row .wire-focus i { display: inline-block; width: 15px; height: 5px; margin: 0 7px 2px 0; border: 1px solid #9aa9b9; }
+.wire-list-row .wire-remove { flex: 0 0 auto; }
 .delete-wire { margin-top: 8px; }
 .task-panel ol { margin: 0; padding-left: 22px; line-height: 1.6; font-size: 14px; }
 .color-picker { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
