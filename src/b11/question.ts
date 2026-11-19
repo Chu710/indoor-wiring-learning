@@ -30,7 +30,7 @@ export const b11Question: B11Question = {
     part('lamp-r', '反轉燈 R2', 'lamp', 810, 330, ['1', '2']),
     part('lamp-g', '停止燈 G', 'lamp', 810, 445, ['1', '2']),
     part('buzzer', '蜂鳴器 BZ', 'buzzer', 810, 560, ['1', '2']),
-    part('motor', '單相感應電動機', 'motor', 610, 560, ['U1', 'U2', 'Z1', 'Z2']),
+    part('motor', '單相感應電動機（負載端）', 'motor', 610, 560, ['U1', 'U2']),
   ],
   referenceNets: [
     ['supply.A', 'nfb.L1'],

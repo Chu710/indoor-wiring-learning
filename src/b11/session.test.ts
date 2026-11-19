@@ -1,0 +1,33 @@
+import { describe, expect, it } from 'vitest';
+import { appendRecord, loadDraft, saveDraft, loadRecords, clearDraft } from './session';
+
+const makeStorage = (): Storage => {
+  const values = new Map<string, string>();
+  return { getItem: (key) => values.get(key) ?? null, setItem: (key, value) => { values.set(key, value); }, removeItem: (key) => { values.delete(key); }, clear: () => values.clear(), key: (index) => [...values.keys()][index] ?? null, get length() { return values.size; } };
+};
+
+describe('local practice records', () => {
+  it('restores a draft and keeps completed records after clearing it', () => {
+    const storage = makeStorage();
+    const draft = { questionId: 'b11-q2-motor-control', startedAt: 100, wires: [], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 };
+    expect(saveDraft(storage, draft)).toBe(true);
+    expect(loadDraft(storage)).toEqual(draft);
+    expect(appendRecord(storage, { ...draft, completedAt: 200, completed: true, simulationResults: ['forward', 'stop', 'reverse', 'interlock', 'trip'] })).toBe(true);
+    clearDraft(storage);
+    expect(loadDraft(storage)).toBeNull();
+    expect(loadRecords(storage)).toHaveLength(1);
+  });
+  it('treats malformed and unavailable storage as recoverable', () => {
+    const storage = makeStorage();
+    storage.setItem('b11-draft-v1', '{broken');
+    expect(loadDraft(storage)).toBeNull();
+    const unavailable = { ...storage, getItem: () => { throw new Error('blocked'); }, setItem: () => { throw new Error('blocked'); } } as Storage;
+    expect(loadDraft(unavailable)).toBeNull();
+    expect(saveDraft(unavailable, { questionId: 'x', startedAt: 1, wires: [], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 })).toBe(false);
+  });
+  it('does not restore malformed wire entries', () => {
+    const storage = makeStorage();
+    storage.setItem('b11-draft-v1', JSON.stringify({ questionId: 'b11-q2-motor-control', startedAt: 1, wires: [null], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 }));
+    expect(loadDraft(storage)).toBeNull();
+  });
+});

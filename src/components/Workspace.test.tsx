@@ -30,4 +30,28 @@ describe('workspace wiring', () => {
     fireEvent.click(screen.getByRole('button', { name: '刪除 supply.A 至 nfb.L1 的線' }));
     expect(onRemoveWire).toHaveBeenCalledWith('w1');
   });
+
+  it('shows reference connections only when requested', () => {
+    const props = { question: b11Question, wires: [] as Wire[], color: 'red' as const, onAddWire: vi.fn(), onRemoveWire: vi.fn(), onMovePart: vi.fn() };
+    const { rerender } = render(<Workspace {...props} answerVisible={false} />);
+    expect(screen.queryByLabelText('參考接線圖層')).toBeNull();
+    rerender(<Workspace {...props} answerVisible />);
+    expect(screen.getByLabelText('參考接線圖層')).toBeTruthy();
+  });
+  it('places a part dropped from the component library', () => {
+    const onMovePart = vi.fn();
+    render(<Workspace question={b11Question} wires={[]} color="red" onAddWire={vi.fn()} onRemoveWire={vi.fn()} onMovePart={onMovePart} />);
+    const stage = screen.getByLabelText('元件放置區');
+    fireEvent.drop(stage, { dataTransfer: { getData: () => 'motor' }, clientX: 300, clientY: 250 });
+    expect(onMovePart).toHaveBeenCalledWith('motor', expect.any(Number), expect.any(Number));
+  });
+  it('creates one wire when the pointer is dragged between terminals', () => {
+    const onAddWire = vi.fn();
+    render(<Workspace question={b11Question} wires={[]} color="red" onAddWire={onAddWire} onRemoveWire={vi.fn()} onMovePart={vi.fn()} />);
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'supply.A' }));
+    fireEvent.pointerUp(screen.getByRole('button', { name: 'nfb.L1' }));
+    fireEvent.click(screen.getByRole('button', { name: 'nfb.L1' }));
+    expect(onAddWire).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('button', { name: 'nfb.L1' }).className).not.toContain('active');
+  });
 });

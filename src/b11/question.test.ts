@@ -20,4 +20,8 @@ describe('B11 question fixture', () => {
     };
     expect(validateQuestion(altered)).toContain('端子出現在不同參考節點：supply.A');
   });
+  it('includes every displayed motor terminal in the exercise topology', () => {
+    const referenced = new Set(b11Question.referenceNets.flat());
+    expect(b11Question.parts.find((part) => part.id === 'motor')?.terminals.every((pin) => referenced.has(pin.id))).toBe(true);
+  });
 });

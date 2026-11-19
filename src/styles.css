@@ -1,10 +1,67 @@
-:root { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: #e7edf8; background: #101827; }
+:root { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: #e7edf8; background: #101827; font-size: 16px; }
 * { box-sizing: border-box; }
 body { margin: 0; }
-.app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(600px,1fr) 260px; grid-template-rows: 110px 1fr; gap: 14px; padding: 14px; }
-header { grid-column: 1 / -1; padding: 12px 20px; background: #1b283d; border-radius: 14px; }
-header p { margin: 0; color: #9baecb; }
-h1 { margin: 5px 0; font-size: 24px; }
-h2 { font-size: 18px; }
-aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 14px; padding: 16px; min-height: 600px; }
-@media(max-width: 1100px) { .app-shell { grid-template-columns: 180px minmax(450px,1fr) 220px; gap: 8px; padding: 8px; } }
+button { font: inherit; cursor: pointer; border: 1px solid #637a9e; border-radius: 8px; background: #263852; color: #f1f5fb; padding: 8px 11px; }
+button:hover:not(:disabled) { background: #355176; }
+button:focus-visible { outline: 3px solid #56c8ed; outline-offset: 2px; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(540px,1fr) 280px; grid-template-rows: auto minmax(0,1fr) auto; gap: 12px; padding: 12px; }
+header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 13px 20px; background: #1b283d; border: 1px solid #344761; border-radius: 14px; }
+header p { margin: 0; color: #9baecb; font-size: 14px; }
+header small { color: #b6c7df; font-size: 14px; }
+h1 { margin: 5px 0; font-size: 23px; }
+h2 { margin: 0 0 12px; font-size: 18px; }
+h3 { margin: 20px 0 8px; font-size: 16px; }
+.header-meta { text-align: right; display: grid; gap: 4px; }
+.header-meta span { color: #76dfb7; font-size: 14px; }
+.header-meta strong { font-size: 26px; font-variant-numeric: tabular-nums; }
+aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 14px; padding: 15px; min-height: 0; }
+.parts-panel, .task-panel { overflow-y: auto; max-height: calc(100vh - 130px); }
+.parts-panel p, .workspace-help { color: #a9bfdc; font-size: 14px; }
+.parts-panel ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 7px; }
+.parts-panel li { display: flex; align-items: center; gap: 8px; padding: 8px; background: #263852; border-radius: 8px; font-size: 14px; }
+.parts-panel li[draggable] { cursor: grab; }
+.parts-panel small { display: block; color: #afc3de; }
+.part-symbol { display: grid; place-items: center; flex: 0 0 29px; height: 29px; border: 1px solid #6f95c4; border-radius: 6px; }
+.workspace-panel { overflow: hidden; display: flex; flex-direction: column; }
+.workspace-toolbar { display: flex; align-items: center; gap: 8px; }
+.workspace-toolbar h2 { margin: 0 auto 0 0; }
+.workspace-toolbar span { font-size: 14px; color: #b9c9e1; white-space: nowrap; }
+.workspace-toolbar button { padding: 5px 8px; font-size: 14px; }
+.workspace-help { margin: 8px 0; }
+.workspace-scroll { overflow: auto; flex: 1; min-height: 420px; background: #102036; border: 1px solid #3c5574; border-radius: 10px; }
+.workspace-stage { position: relative; width: 1040px; height: 760px; background-image: linear-gradient(#24405a 1px,transparent 1px), linear-gradient(90deg,#24405a 1px,transparent 1px); background-size: 25px 25px; }
+.wire-layer { position: absolute; inset: 0; width: 1040px; height: 760px; z-index: 3; pointer-events: none; }
+.wire-layer g { pointer-events: stroke; cursor: pointer; }
+.wire-layer .reference-wires { pointer-events: none; opacity: .75; }
+.visible-wire { filter: drop-shadow(0 1px 2px #000); }
+.circuit-part { position: absolute; width: 108px; min-height: 84px; background: #e8f1fa; color: #16243b; border: 2px solid #6a9dc5; border-radius: 8px; z-index: 2; }
+.part-title { cursor: grab; padding: 6px 8px; min-height: 34px; font-weight: 700; font-size: 13px; line-height: 1.2; text-align: center; }
+.terminal { position: absolute; width: 18px; height: 18px; border-radius: 50%; padding: 0; background: #f8c857; border: 2px solid #9f6320; z-index: 4; }
+.terminal span { position: absolute; top: -2px; left: 17px; background: #e8f1fa; border-radius: 3px; padding: 0 2px; font-size: 11px; white-space: nowrap; }
+.terminal:nth-child(odd) span { left: auto; right: 17px; }
+.terminal.active { outline: 4px solid #52e1d3; }
+.wire-list { margin-top: 8px; display: flex; gap: 5px; overflow-x: auto; min-height: 38px; }
+.wire-list button { flex: 0 0 auto; font-size: 12px; padding: 4px 7px; }
+.delete-wire { margin-top: 8px; }
+.task-panel ol { margin: 0; padding-left: 22px; line-height: 1.6; font-size: 14px; }
+.color-picker { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+.color-picker button { display: grid; justify-items: center; gap: 3px; font-size: 14px; padding: 6px 2px; }
+.color-picker i { display: block; width: 25px; height: 7px; border: 1px solid #8fa5c0; border-radius: 3px; }
+.color-picker .chosen { outline: 2px solid #55c8f4; }
+.actions { display: grid; gap: 6px; margin-top: 14px; }
+.primary { background: #146d91; border-color: #3ac5f1; font-weight: 700; }
+.check-result { margin-top: 12px; padding: 10px; border-radius: 8px; border: 1px solid #b78547; background: #3a302d; font-size: 14px; }
+.check-result.danger { border-color: #ec7d7d; background: #422930; }
+.check-result.success { border-color: #61caa0; background: #204437; }
+.check-result p { margin: 7px 0; }
+.check-result button { width: 100%; margin-top: 5px; }
+.answer-note { border-left: 3px solid #54c2e0; padding-left: 8px; font-size: 14px; }
+.motor-status { font-size: 18px; font-weight: 700; color: #8ce0bc; }
+.motor-status.danger { color: #ff9090; }
+.task-panel > p { font-size: 14px; }
+.motor-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; }
+.restart { width: 100%; margin-top: 14px; }
+.practice-footer { grid-column: 1 / -1; padding: 8px 14px; border-radius: 8px; background: #1b283d; font-size: 14px; color: #bfd0e6; }
+.practice-footer strong { color: #ffb0a9; }
+@media(max-width: 1100px) { .app-shell { grid-template-columns: 170px minmax(420px,1fr) 230px; gap: 8px; padding: 8px; } }
