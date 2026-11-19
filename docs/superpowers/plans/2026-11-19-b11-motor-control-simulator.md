@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- The first release covers only the motor-control-box portion of indoor-wiring certificate B11 question 2, on a laptop browser.
+- The first release covers only the single-phase motor-control-box portion of indoor-wiring certificate B11 question 2, on a laptop browser.
 - The official B11 reference is `C:/Users/User/Tool-Robot/007003B11.pdf`, especially the second-question instructions and wiring diagrams. Transcribe terminal labels and topology from it before asserting an answer.
 - No accounts, backend, cloud sync, academic question bank, camera, or real hardware control.
 - Four selectable wire colors: red, white, black, green.
