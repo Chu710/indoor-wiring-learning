@@ -70,6 +70,7 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .motor-status { font-size: 18px; font-weight: 700; color: #8ce0bc; }
 .motor-status.danger { color: #ff9090; }
 .task-panel > p { font-size: 14px; }
+.segment-description { color: #c6d5e8; font-size: 13px; line-height: 1.5; }
 .motor-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; }
 .restart { width: 100%; margin-top: 14px; }
 .practice-footer { grid-column: 1 / -1; padding: 8px 14px; border-radius: 8px; background: #1b283d; font-size: 14px; color: #bfd0e6; }

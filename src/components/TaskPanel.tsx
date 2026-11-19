@@ -1,5 +1,6 @@
 import type { Diagnostic, WireColor } from '../b11/types';
 import type { MotorAction, MotorState } from '../b11/simulate';
+import { wiringSegments, type WiringSegment } from '../b11/segments';
 
 interface Props {
   diagnostics: Diagnostic[];
@@ -16,6 +17,12 @@ interface Props {
   onClear: () => void;
   onLoadReference?: () => void;
   onMotorAction: (action: MotorAction) => void;
+  segment?: WiringSegment;
+  segmentNumber?: number;
+  segmentCount?: number;
+  segmentComplete?: boolean;
+  onCheckSegment?: () => void;
+  onNextSegment?: () => void;
 }
 
 const colors: { id: WireColor; name: string }[] = [
@@ -24,11 +31,17 @@ const colors: { id: WireColor; name: string }[] = [
 
 export function TaskPanel(props: Props) {
   const { diagnostics, checked, hintLevel, motor, color, answerVisible } = props;
+  const segment = props.segment ?? wiringSegments[0];
+  const segmentNumber = props.segmentNumber ?? 1;
+  const segmentCount = props.segmentCount ?? wiringSegments.length;
   const issue = diagnostics[0];
   const ready = checked && diagnostics.length === 0;
   return <aside className="task-panel" aria-label="任務面板">
     <h2>練習步驟</h2>
     <ol><li>選線色、連接端子</li><li>檢查所有電氣節點</li><li>執行馬達控制測試</li></ol>
+    <h3>分段練習｜第 {segmentNumber} / {segmentCount} 段</h3>
+    <p className="segment-description">{segment.title}<br />{segment.description}</p>
+    <div className="actions"><button className="primary" onClick={() => props.onCheckSegment?.()}>檢查本段接線</button>{props.segmentComplete && segmentNumber < segmentCount && <button onClick={() => props.onNextSegment?.()}>進入下一段</button>}</div>
     <h3>電線顏色</h3>
     <div className="color-picker">{colors.map((item) => <button key={item.id} className={color === item.id ? 'chosen' : ''} onClick={() => props.onColor(item.id)} aria-label={`${item.name}色線`} aria-pressed={color === item.id}><i style={{ background: item.id }} />{item.name}</button>)}</div>
     <div className="actions"><button className="primary" onClick={props.onCheck}>檢查接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入正確接線（測試用）</button>}</div>

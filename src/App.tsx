@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { b11Question } from './b11/question';
 import { validateWiring } from './b11/validate';
 import { initialMotorState, nextMotorState, type MotorAction } from './b11/simulate';
+import { wiringSegments } from './b11/segments';
 import { appendRecord, clearDraft, getBrowserStorage, loadDraft, loadRecords, saveDraft } from './b11/session';
 import type { B11Question, Diagnostic, Wire, WireColor } from './b11/types';
 import { PartsPanel } from './components/PartsPanel';
@@ -28,6 +29,9 @@ export default function App() {
   const [storageWarning, setStorageWarning] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [historyCount, setHistoryCount] = useState(() => storage ? loadRecords(storage).length : 0);
+  const [segmentIndex, setSegmentIndex] = useState(0);
+  const [segmentComplete, setSegmentComplete] = useState(false);
+  const segment = wiringSegments[segmentIndex];
   useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
   useEffect(() => {
     if (completed) return;
@@ -57,9 +61,15 @@ export default function App() {
     setDiagnostics(issues); setChecked(true); setHintLevel(0); setCheckCount((count) => count + 1);
     setErrorCounts((counts) => ({ danger: counts.danger + issues.filter((item) => item.kind === 'danger').length, structure: counts.structure + issues.filter((item) => item.kind === 'structure').length, function: counts.function + issues.filter((item) => item.kind === 'function').length }));
   };
+  const checkSegment = () => {
+    const segmentNets = segment.netIndexes.map((index) => question.referenceNets[index]);
+    const issues = validateWiring(question, wires, segmentNets);
+    setDiagnostics(issues); setChecked(false); setHintLevel(0); setSegmentComplete(issues.length === 0);
+  };
+  const nextSegment = () => { setSegmentIndex((index) => Math.min(wiringSegments.length - 1, index + 1)); setSegmentComplete(false); setDiagnostics([]); setHintLevel(0); };
   const reset = () => {
     if (!window.confirm('確定要重新開始這次練習嗎？')) return;
-    if (storage) clearDraft(storage); setQuestion(b11Question); setWires([]); setColor('red'); setStartedAt(Date.now()); setAnswerVisible(false); setCheckCount(0); setErrorCounts({ danger: 0, structure: 0, function: 0 }); setHintCount(0); setCompleted(false); resetCheck();
+    if (storage) clearDraft(storage); setQuestion(b11Question); setWires([]); setColor('red'); setStartedAt(Date.now()); setAnswerVisible(false); setCheckCount(0); setErrorCounts({ danger: 0, structure: 0, function: 0 }); setHintCount(0); setCompleted(false); setSegmentIndex(0); setSegmentComplete(false); resetCheck();
   };
   const motorAction = (action: MotorAction) => setMotor((state) => nextMotorState(state, action));
   const loadReference = () => {
@@ -70,7 +80,7 @@ export default function App() {
     <header><div><p>室內配線丙級｜術科互動練習</p><h1>{question.title}</h1><small>依官方 B11 第二題控制原理設計；端子編號為教學標示，實際器材須核對。</small></div><div className="header-meta"><span>{completed ? '練習完成' : '練習中'}</span><strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong></div></header>
     <PartsPanel question={question} />
     <Workspace question={question} wires={wires} color={color} answerVisible={answerVisible} onAddWire={addWire} onRemoveWire={(id) => { setWires((existing) => existing.filter((wire) => wire.id !== id)); resetCheck(); }} onMovePart={(id, x, y) => setQuestion((existing) => ({ ...existing, parts: existing.parts.map((part) => part.id === id ? { ...part, x, y } : part) }))} />
-    <TaskPanel diagnostics={diagnostics} checked={checked} hintLevel={hintLevel} motor={motor} color={color} answerVisible={answerVisible} onColor={setColor} onCheck={check} onHint={() => { setHintLevel((level) => Math.min(3, level + 1)); setHintCount((count) => count + 1); }} onShowAnswer={() => { setAnswerVisible(true); setHintCount((count) => count + 1); }} onReset={reset} onClear={() => { setWires([]); resetCheck(); }} onLoadReference={loadReference} onMotorAction={motorAction} />
+    <TaskPanel diagnostics={diagnostics} checked={checked} hintLevel={hintLevel} motor={motor} color={color} answerVisible={answerVisible} onColor={setColor} onCheck={check} onCheckSegment={checkSegment} onNextSegment={nextSegment} segment={segment} segmentNumber={segmentIndex + 1} segmentCount={wiringSegments.length} segmentComplete={segmentComplete} onHint={() => { setHintLevel((level) => Math.min(3, level + 1)); setHintCount((count) => count + 1); }} onShowAnswer={() => { setAnswerVisible(true); setHintCount((count) => count + 1); }} onReset={reset} onClear={() => { setWires([]); resetCheck(); setSegmentComplete(false); }} onLoadReference={loadReference} onMotorAction={motorAction} />
     <div className="practice-footer" role="status">檢查 {checkCount} 次 · 錯誤 {errorCounts.danger + errorCounts.structure + errorCounts.function} 次 · 提示 {hintCount} 次 · 已完成 {historyCount} 次{storageWarning && <strong>　本機儲存失敗，這次紀錄可能無法保留。</strong>}</div>
   </main>;
 }

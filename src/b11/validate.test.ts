@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { b11Question } from './question';
 import { validateWiring } from './validate';
+import { wiringSegments } from './segments';
 import type { Wire } from './types';
 
 const wire = (from: string, to: string): Wire => ({ id: `${from}-${to}`, from, to, color: 'red', createdAt: 1 });
@@ -24,5 +25,13 @@ describe('wiring diagnostics', () => {
   });
   it('rejects an extra connection between distinct nets', () => {
     expect(validateWiring(b11Question, [...reference, wire('mcf.A1', 'mcr.A1')]).length).toBeGreaterThan(0);
+  });
+  it('checks only the selected segment nets', () => {
+    const segment = wiringSegments[0];
+    const stageWires = segment.netIndexes.flatMap((index) => {
+      const net = b11Question.referenceNets[index];
+      return net.slice(1).map((pin, offset) => wire(net[offset], pin));
+    });
+    expect(validateWiring(b11Question, stageWires, segment.netIndexes.map((index) => b11Question.referenceNets[index]))).toEqual([]);
   });
 });
