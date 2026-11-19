@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { b11Question } from './b11/question';
 import { validateWiring } from './b11/validate';
 import { initialMotorState, type MotorAction } from './b11/simulate';
@@ -9,9 +9,12 @@ import type { B11Question, Diagnostic, Wire, WireColor } from './b11/types';
 import { PartsPanel } from './components/PartsPanel';
 import { TaskPanel } from './components/TaskPanel';
 import { Workspace } from './components/Workspace';
+import { TheoryQuiz } from './components/TheoryQuiz';
 import './styles.css';
 
 export default function App() {
+  const [view, setView] = useState<'practical' | 'theory'>(() => window.location.hash === '#theory' ? 'theory' : 'practical');
+  const theoryEnteredAt = useRef<number | null>(view === 'theory' ? Date.now() : null);
   const [storage] = useState(() => getBrowserStorage(() => window.localStorage));
   const [restored] = useState(() => { const draft = storage ? loadDraft(storage) : null; return draft?.questionId === b11Question.id ? draft : null; });
   const [question, setQuestion] = useState<B11Question>(() => ({ ...b11Question, parts: b11Question.parts.map((part) => ({ ...part, ...(restored?.positions[part.id] ?? {}) })) }));
@@ -80,12 +83,16 @@ export default function App() {
     const referenceWires = b11Question.referenceNets.flatMap((net) => net.slice(1).map((to, index) => ({ id: `reference-${net[0]}-${index}`, from: net[index], to, color: (net.includes('earth.PE') ? 'green' : 'red') as WireColor, createdAt: Date.now() })));
     setWires(referenceWires); setAnswerVisible(true); setSegmentComplete(false); resetCheck();
   };
+  const openTheory = () => { if (view === 'theory') return; theoryEnteredAt.current = Date.now(); window.history.replaceState(null, '', '#theory'); setView('theory'); };
+  const openPractical = () => { if (view === 'practical') return; if (theoryEnteredAt.current !== null) setStartedAt((time) => time + Date.now() - theoryEnteredAt.current!); theoryEnteredAt.current = null; setNow(Date.now()); window.history.replaceState(null, '', '#practical'); setView('practical'); };
   return <main className="app-shell">
-    <header><div><p>室內配線丙級｜B11 圖面練習</p><h1>{question.title}</h1><small>依官方附圖建立主電路、控制迴路與接地；端子號為圖面教學標示，實體配線仍須核對器材與指導教師。</small></div><div className="header-meta"><span>{completed ? '圖面練習完成' : '圖面練習中'}</span><strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong></div></header>
+    <header><div><p>室內配線丙級｜學術科互動練習</p><h1>{view === 'theory' ? '學科練習｜電動機裝置' : question.title}</h1><small>{view === 'theory' ? '先用 8 題核對電動機概念，再回到 B11 術科配線。' : '依官方附圖建立主電路、控制迴路與接地；端子號為圖面教學標示，實體配線仍須核對器材與指導教師。'}</small></div><div className="header-meta"><nav className="mode-nav" aria-label="練習類型"><button aria-pressed={view === 'practical'} onClick={openPractical}>術科配線</button><button aria-pressed={view === 'theory'} onClick={openTheory}>學科練習</button></nav><span>{view === 'theory' ? '8 題入門練習' : completed ? '圖面練習完成' : '圖面練習中'}</span>{view === 'practical' && <strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong>}</div></header>
+    {view === 'theory' ? <TheoryQuiz /> : <>
     <details className="official-schematic"><summary>查看官方 B11 第二題電路圖</summary><p>來源：勞動部 007003B11，第二題附圖（二），印刷頁 20。圖中未指定實際器材的全部端子號，請用圖面符號與現場器材對照。</p><img src="/b11-official-schematic.png" alt="官方 B11 第二題單相感應電動機正逆轉控制電路圖" /></details>
     <PartsPanel question={question} />
     <Workspace question={question} wires={wires} color={color} answerVisible={answerVisible} onAddWire={addWire} onRemoveWire={(id) => { setWires((existing) => existing.filter((wire) => wire.id !== id)); setSegmentComplete(false); resetCheck(); }} onMovePart={(id, x, y) => setQuestion((existing) => ({ ...existing, parts: existing.parts.map((part) => part.id === id ? { ...part, x, y } : part) }))} />
     <TaskPanel diagnostics={diagnostics} checked={checked} segmentChecked={segmentChecked} hintLevel={hintLevel} motor={motor} color={color} answerVisible={answerVisible} onColor={setColor} onCheck={check} onCheckSegment={checkSegment} onNextSegment={nextSegment} segment={segment} segmentNumber={segmentIndex + 1} segmentCount={wiringSegments.length} segmentComplete={segmentComplete} onHint={() => { setHintLevel((level) => Math.min(3, level + 1)); setHintCount((count) => count + 1); }} onShowAnswer={() => { setAnswerVisible(true); setHintCount((count) => count + 1); }} onReset={reset} onClear={() => { setWires([]); resetCheck(); setSegmentComplete(false); }} onLoadReference={loadReference} onMotorAction={motorAction} />
     <div className="practice-footer" role="status">檢查 {checkCount} 次 · 錯誤 {errorCounts.danger + errorCounts.structure + errorCounts.function} 次 · 提示 {hintCount} 次 · 已完成 {historyCount} 次{storageWarning && <strong>　本機儲存失敗，這次紀錄可能無法保留。</strong>}</div>
+    </>}
   </main>;
 }

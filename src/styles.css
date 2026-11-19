@@ -19,6 +19,9 @@ h3 { margin: 20px 0 8px; font-size: 16px; }
 .header-meta { text-align: right; display: grid; gap: 4px; }
 .header-meta span { color: #76dfb7; font-size: 14px; }
 .header-meta strong { font-size: 26px; font-variant-numeric: tabular-nums; }
+.mode-nav { display: flex; gap: 6px; justify-content: flex-end; }
+.mode-nav button { padding: 6px 10px; font-size: 14px; white-space: nowrap; }
+.mode-nav button[aria-pressed="true"] { background: #146d91; border-color: #3ac5f1; }
 aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 14px; padding: 15px; min-height: 0; }
 .parts-panel, .task-panel { overflow-y: auto; max-height: calc(100vh - 130px); }
 .parts-panel p, .workspace-help { color: #a9bfdc; font-size: 14px; }
@@ -82,4 +85,27 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .restart { width: 100%; margin-top: 14px; }
 .practice-footer { grid-column: 1 / -1; padding: 8px 14px; border-radius: 8px; background: #1b283d; font-size: 14px; color: #bfd0e6; }
 .practice-footer strong { color: #ffb0a9; }
+.theory-page { grid-column: 1 / -1; width: min(100%, 900px); margin: 0 auto; min-height: 70vh; padding: 24px; }
+.theory-intro { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+.theory-intro h2 { margin: 4px 0 10px; font-size: 25px; }
+.theory-intro p { max-width: 680px; line-height: 1.65; }
+.theory-intro a { flex: 0 0 auto; color: #94dcff; font-size: 14px; }
+.eyebrow, .theory-source { color: #a7d5e8; font-size: 14px; }
+.theory-card { margin-top: 22px; padding: 24px; background: #102036; border: 1px solid #3c5574; border-radius: 12px; }
+.theory-card h3 { margin: 18px 0; font-size: 21px; line-height: 1.5; }
+.theory-progress { display: flex; justify-content: space-between; gap: 16px; color: #b9eaf5; font-size: 15px; }
+.theory-choices { display: grid; gap: 10px; }
+.theory-choices button { text-align: left; padding: 13px 16px; font-size: 16px; line-height: 1.4; }
+.theory-choices button.chosen { border-color: #f7d473; }
+.theory-choices button.correct { background: #205f47; border-color: #66d9a5; opacity: 1; }
+.theory-choices button.incorrect { background: #693b40; border-color: #f29090; opacity: 1; }
+.theory-feedback { margin-top: 16px; padding: 12px 16px; border-radius: 8px; line-height: 1.55; }
+.theory-feedback.correct { background: #204437; border: 1px solid #61caa0; }
+.theory-feedback.incorrect { background: #422930; border: 1px solid #ec7d7d; }
+.theory-feedback p { margin-bottom: 0; }
+.theory-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+.theory-review { display: grid; gap: 12px; padding-left: 20px; line-height: 1.6; }
+.theory-history { color: #a9bfdc; font-size: 14px; }
+.theory-history strong { color: #ffb0a9; }
 @media(max-width: 1100px) { .app-shell { grid-template-columns: 170px minmax(420px,1fr) 230px; gap: 8px; padding: 8px; } }
+@media(max-width: 700px) { .theory-intro { display: block; } .theory-card { padding: 16px; } .mode-nav { justify-content: flex-start; } header { align-items: flex-start; gap: 12px; flex-direction: column; } .header-meta { text-align: left; } }

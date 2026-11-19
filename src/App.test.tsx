@@ -3,11 +3,38 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import { b11Question } from './b11/question';
 import { loadRecords } from './b11/session';
+import { motorTheoryQuestions } from './theory/questions';
+import { loadTheoryResults } from './theory/records';
 
 afterEach(cleanup);
-beforeEach(() => window.localStorage.clear());
+beforeEach(() => { window.localStorage.clear(); window.history.replaceState(null, '', '#practical'); });
 
 describe('B11 practice screen', () => {
+  it('resumes the theory quiz after switching views and saves a completed attempt', () => {
+    const app = render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: 'supply.A' }));
+    fireEvent.click(screen.getByRole('button', { name: 'nfb.L1' }));
+    fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    fireEvent.click(screen.getByRole('button', { name: '2. 6 Hz' }));
+    fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
+    fireEvent.click(screen.getByRole('button', { name: '下一題' }));
+    fireEvent.click(screen.getByRole('button', { name: '術科配線' }));
+    expect(screen.getByText('1 條線')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    expect(screen.getByText('第 2 / 8 題')).toBeTruthy();
+    for (let index = 1; index < motorTheoryQuestions.length; index += 1) {
+      const question = motorTheoryQuestions[index];
+      fireEvent.click(screen.getByRole('button', { name: `${question.answer + 1}. ${question.choices[question.answer]}` }));
+      fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
+      fireEvent.click(screen.getByRole('button', { name: index === motorTheoryQuestions.length - 1 ? '查看成績' : '下一題' }));
+    }
+    expect(screen.getByText('7 / 8 題答對')).toBeTruthy();
+    expect(loadTheoryResults(window.localStorage)).toHaveLength(1);
+    app.unmount();
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    expect(screen.getByText('這台電腦已完成 1 次學科練習。')).toBeTruthy();
+  });
   it('shows segment errors without enabling the virtual power test', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '檢查本段接線' }));
