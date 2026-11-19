@@ -5,7 +5,7 @@ describe('B11 question fixture', () => {
   it('contains the single-phase forward and reverse control components', () => {
     expect(b11Question.title).toContain('單相');
     expect(b11Question.parts.map((part) => part.id)).toEqual(expect.arrayContaining([
-      'nfb', 'mcf', 'mcr', 'thry', 'stop', 'forward', 'reverse', 'motor', 'lamp-f', 'lamp-r', 'lamp-g', 'buzzer',
+      'nfb', 'pf-a', 'pf-b', 'mcf', 'mcr', 'thry', 'stop', 'forward', 'reverse', 'motor', 'lamp-f', 'lamp-r', 'lamp-g', 'buzzer',
     ]));
   });
 

@@ -30,4 +30,11 @@ describe('local practice records', () => {
     storage.setItem('b11-draft-v1', JSON.stringify({ questionId: 'b11-q2-motor-control', startedAt: 1, wires: [null], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 }));
     expect(loadDraft(storage)).toBeNull();
   });
+  it('does not overwrite malformed completed history', () => {
+    const storage = makeStorage();
+    storage.setItem('b11-records-v1', '{broken');
+    const record = { questionId: 'x', startedAt: 1, completedAt: 2, completed: true, wires: [], positions: {}, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0, simulationResults: [] };
+    expect(appendRecord(storage, record)).toBe(false);
+    expect(storage.getItem('b11-records-v1')).toBe('{broken');
+  });
 });

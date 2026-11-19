@@ -3,6 +3,7 @@ import type { MotorAction } from './simulate';
 
 const draftKey = 'b11-draft-v1';
 const recordsKey = 'b11-records-v1';
+const corruptDraftKey = 'b11-draft-corrupt-v1';
 
 export interface Draft {
   questionId: string;
@@ -36,7 +37,13 @@ export function loadDraft(storage: Storage): Draft | null {
 }
 
 export function saveDraft(storage: Storage, draft: Draft): boolean {
-  try { storage.setItem(draftKey, JSON.stringify(draft)); return true; } catch { return false; }
+  try {
+    const existing = storage.getItem(draftKey);
+    if (existing) {
+      try { loadDraft(storage); if (loadDraft(storage) === null) storage.setItem(corruptDraftKey, existing); } catch { return false; }
+    }
+    storage.setItem(draftKey, JSON.stringify(draft)); return true;
+  } catch { return false; }
 }
 
 export function clearDraft(storage: Storage): boolean {
@@ -48,5 +55,14 @@ export function loadRecords(storage: Storage): PracticeRecord[] {
 }
 
 export function appendRecord(storage: Storage, record: PracticeRecord): boolean {
-  try { storage.setItem(recordsKey, JSON.stringify([...loadRecords(storage), record])); return true; } catch { return false; }
+  try {
+    const raw = storage.getItem(recordsKey);
+    const current: unknown = raw === null ? [] : JSON.parse(raw);
+    if (!Array.isArray(current)) return false;
+    storage.setItem(recordsKey, JSON.stringify([...current, record])); return true;
+  } catch { return false; }
+}
+
+export function getBrowserStorage(accessor: () => Storage): Storage | null {
+  try { return accessor(); } catch { return null; }
 }

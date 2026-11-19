@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { b11Question } from './b11/question';
 import { validateWiring } from './b11/validate';
 import { initialMotorState, nextMotorState, type MotorAction } from './b11/simulate';
-import { appendRecord, clearDraft, loadDraft, loadRecords, saveDraft } from './b11/session';
+import { appendRecord, clearDraft, getBrowserStorage, loadDraft, loadRecords, saveDraft } from './b11/session';
 import type { B11Question, Diagnostic, Wire, WireColor } from './b11/types';
 import { PartsPanel } from './components/PartsPanel';
 import { TaskPanel } from './components/TaskPanel';
@@ -10,7 +10,8 @@ import { Workspace } from './components/Workspace';
 import './styles.css';
 
 export default function App() {
-  const [restored] = useState(() => loadDraft(window.localStorage));
+  const [storage] = useState(() => getBrowserStorage(() => window.localStorage));
+  const [restored] = useState(() => storage ? loadDraft(storage) : null);
   const [question, setQuestion] = useState<B11Question>(() => ({ ...b11Question, parts: b11Question.parts.map((part) => ({ ...part, ...(restored?.positions[part.id] ?? {}) })) }));
   const [wires, setWires] = useState<Wire[]>(restored?.wires ?? []);
   const [color, setColor] = useState<WireColor>('red');
@@ -26,20 +27,20 @@ export default function App() {
   const [hintCount, setHintCount] = useState(restored?.hintCount ?? 0);
   const [storageWarning, setStorageWarning] = useState(false);
   const [completed, setCompleted] = useState(false);
-  const [historyCount, setHistoryCount] = useState(() => loadRecords(window.localStorage).length);
+  const [historyCount, setHistoryCount] = useState(() => storage ? loadRecords(storage).length : 0);
   useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
   useEffect(() => {
     if (completed) return;
     const positions = Object.fromEntries(question.parts.map((part) => [part.id, { x: part.x, y: part.y }]));
-    if (!saveDraft(window.localStorage, { questionId: question.id, startedAt, wires, positions, checkCount, errorCounts, hintCount })) setStorageWarning(true);
-  }, [question, startedAt, wires, checkCount, errorCounts, hintCount, completed]);
+    if (!storage || !saveDraft(storage, { questionId: question.id, startedAt, wires, positions, checkCount, errorCounts, hintCount })) setStorageWarning(true);
+  }, [question, startedAt, wires, checkCount, errorCounts, hintCount, completed, storage]);
   useEffect(() => {
     if (completed || !checked || diagnostics.length || !(['forward', 'stop', 'reverse', 'interlock', 'trip'] as MotorAction[]).every((action) => motor.tested.includes(action))) return;
     const positions = Object.fromEntries(question.parts.map((part) => [part.id, { x: part.x, y: part.y }]));
     const record = { questionId: question.id, startedAt, wires, positions, checkCount, errorCounts, hintCount, completedAt: Date.now(), completed: true, simulationResults: motor.tested };
-    if (!appendRecord(window.localStorage, record)) setStorageWarning(true);
+    if (!storage || !appendRecord(storage, record)) { setStorageWarning(true); return; }
     else setHistoryCount((count) => count + 1);
-    clearDraft(window.localStorage);
+    clearDraft(storage);
     setCompleted(true);
   }, [checked, completed, diagnostics, motor, question, startedAt, wires, checkCount, errorCounts, hintCount]);
   const elapsed = useMemo(() => Math.floor((now - startedAt) / 1000), [now, startedAt]);
@@ -58,7 +59,7 @@ export default function App() {
   };
   const reset = () => {
     if (!window.confirm('確定要重新開始這次練習嗎？')) return;
-    clearDraft(window.localStorage); setQuestion(b11Question); setWires([]); setColor('red'); setStartedAt(Date.now()); setAnswerVisible(false); setCheckCount(0); setErrorCounts({ danger: 0, structure: 0, function: 0 }); setHintCount(0); setCompleted(false); resetCheck();
+    if (storage) clearDraft(storage); setQuestion(b11Question); setWires([]); setColor('red'); setStartedAt(Date.now()); setAnswerVisible(false); setCheckCount(0); setErrorCounts({ danger: 0, structure: 0, function: 0 }); setHintCount(0); setCompleted(false); resetCheck();
   };
   const motorAction = (action: MotorAction) => setMotor((state) => nextMotorState(state, action));
   return <main className="app-shell">

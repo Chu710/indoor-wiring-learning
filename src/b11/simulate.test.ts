@@ -16,6 +16,8 @@ describe('motor control simulation', () => {
   it('locks out after overload until reset', () => {
     const tripped = nextMotorState(nextMotorState(initialMotorState, 'reverse'), 'trip');
     expect(tripped.direction).toBe('stopped');
+    expect(tripped.lamps.stopped).toBe(true);
+    expect(tripped.buzzer).toBe(true);
     expect(nextMotorState(tripped, 'forward').direction).toBe('stopped');
     expect(nextMotorState(nextMotorState(tripped, 'reset'), 'forward').direction).toBe('forward');
   });
@@ -29,5 +31,12 @@ describe('motor control simulation', () => {
     const blocked = nextMotorState(running, 'interlock');
     expect(blocked.direction).toBe('forward');
     expect(blocked.tested).toContain('interlock');
+  });
+  it('does not credit reverse or stop without observing those functions', () => {
+    const running = nextMotorState(initialMotorState, 'forward');
+    const blockedReverse = nextMotorState(running, 'reverse');
+    expect(blockedReverse.tested).not.toContain('reverse');
+    expect(nextMotorState(initialMotorState, 'stop').tested).not.toContain('stop');
+    expect(nextMotorState(initialMotorState, 'trip').tested).not.toContain('trip');
   });
 });
