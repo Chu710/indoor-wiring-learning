@@ -11,6 +11,12 @@ interface Props {
   onMovePart: (id: string, x: number, y: number) => void;
 }
 
+function orthogonalPath(a: { x: number; y: number }, b: { x: number; y: number }, lane: number): string {
+  const offset = ((lane % 7) - 3) * 10;
+  const midX = Math.max(12, Math.min(1028, (a.x + b.x) / 2 + offset));
+  return `M ${a.x} ${a.y} L ${midX} ${a.y} L ${midX} ${b.y} L ${b.x} ${b.y}`;
+}
+
 export function Workspace({ question, wires, color, answerVisible = false, onAddWire, onRemoveWire, onMovePart }: Props) {
   const [start, setStart] = useState<string | null>(null);
   const pointerOrigin = useRef<string | null>(null);
@@ -36,14 +42,14 @@ export function Workspace({ question, wires, color, answerVisible = false, onAdd
       <svg className="wire-layer" viewBox="0 0 1040 760" aria-label="電線">
         {answerVisible && <g aria-label="參考接線圖層" className="reference-wires">{question.referenceNets.flatMap((net, index) => net.slice(1).map((id) => {
           const a = locations.get(net[0]); const b = locations.get(id);
-          return a && b ? <line key={`${index}-${id}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#61d8ed" strokeWidth="2" strokeDasharray="5 5" /> : null;
+          return a && b ? <path key={`${index}-${id}`} d={orthogonalPath(a, b, index)} fill="none" stroke="#61d8ed" strokeWidth="2" strokeDasharray="5 5" /> : null;
         }))}</g>}
-        {wires.map((wire) => {
+        {wires.map((wire, index) => {
           const a = locations.get(wire.from); const b = locations.get(wire.to);
           if (!a || !b) return null;
           return <g key={wire.id} role="button" tabIndex={0} aria-label={`選取 ${wire.from} 至 ${wire.to} 的線`} onClick={() => setSelectedWire(wire.id)} onKeyDown={(event) => { if (event.key === 'Enter') setSelectedWire(wire.id); if (event.key === 'Delete') onRemoveWire(wire.id); }}>
-            <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="transparent" strokeWidth="16" />
-            <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={wire.color} strokeWidth={selectedWire === wire.id ? 5 : 3} className="visible-wire" />
+            <path d={orthogonalPath(a, b, index)} fill="none" stroke="transparent" strokeWidth="16" />
+            <path d={orthogonalPath(a, b, index)} fill="none" stroke={wire.color} strokeWidth={selectedWire === wire.id ? 5 : 3} className="visible-wire" />
           </g>;
         })}
       </svg>
