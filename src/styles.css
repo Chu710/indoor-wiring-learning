@@ -5,10 +5,14 @@ button { font: inherit; cursor: pointer; border: 1px solid #637a9e; border-radiu
 button:hover:not(:disabled) { background: #355176; }
 button:focus-visible { outline: 3px solid #56c8ed; outline-offset: 2px; }
 button:disabled { opacity: .4; cursor: not-allowed; }
-.app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(540px,1fr) 280px; grid-template-rows: auto minmax(0,1fr) auto; gap: 12px; padding: 12px; }
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(540px,1fr) 280px; grid-template-rows: auto auto minmax(0,1fr) auto; gap: 12px; padding: 12px; }
 header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 13px 20px; background: #1b283d; border: 1px solid #344761; border-radius: 14px; }
 header p { margin: 0; color: #9baecb; font-size: 14px; }
 header small { color: #b6c7df; font-size: 14px; }
+.official-schematic { grid-column: 1 / -1; background: #e9f0f4; color: #14243b; border-radius: 10px; padding: 10px 14px; }
+.official-schematic summary { cursor: pointer; font-weight: 700; }
+.official-schematic p { margin: 8px 0; font-size: 14px; }
+.official-schematic img { display: block; width: min(100%, 1200px); height: auto; margin: 0 auto; }
 h1 { margin: 5px 0; font-size: 23px; }
 h2 { margin: 0 0 12px; font-size: 18px; }
 h3 { margin: 20px 0 8px; font-size: 16px; }
