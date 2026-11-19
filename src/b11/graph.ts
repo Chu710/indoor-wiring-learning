@@ -1,6 +1,6 @@
 import type { B11Question, Wire } from './types';
 
-export function getConnectedNets(question: B11Question, wires: Wire[]): ReadonlyArray<ReadonlySet<string>> {
+export function getConnectedNets(question: B11Question, wires: Wire[], closedContacts: [string, string][] = []): ReadonlyArray<ReadonlySet<string>> {
   const ids = question.parts.flatMap((part) => part.terminals.map((pin) => pin.id));
   const parent = new Map(ids.map((id) => [id, id]));
   const root = (id: string): string => {
@@ -11,7 +11,7 @@ export function getConnectedNets(question: B11Question, wires: Wire[]): Readonly
     parent.set(id, result);
     return result;
   };
-  for (const [a, b] of [...question.fixedConnections, ...wires.map((wire): [string, string] => [wire.from, wire.to])]) {
+  for (const [a, b] of [...question.fixedConnections, ...wires.map((wire): [string, string] => [wire.from, wire.to]), ...closedContacts]) {
     if (parent.has(a) && parent.has(b)) parent.set(root(a), root(b));
   }
   const groups = new Map<string, Set<string>>();

@@ -4,7 +4,7 @@ import type { MotorAction } from './simulate';
 const draftKey = 'b11-draft-v1';
 const recordsKey = 'b11-records-v1';
 const corruptDraftKey = 'b11-draft-corrupt-v1';
-const legacyDraftKey = 'b11-draft-legacy-v1';
+const legacyDraftKey = (questionId: string) => `b11-draft-legacy-${questionId}`;
 
 export interface Draft {
   questionId: string;
@@ -43,7 +43,7 @@ export function saveDraft(storage: Storage, draft: Draft): boolean {
     if (existing) {
       const previous = loadDraft(storage);
       if (previous === null) storage.setItem(corruptDraftKey, existing);
-      else if (previous.questionId !== draft.questionId) storage.setItem(legacyDraftKey, existing);
+      else if (previous.questionId !== draft.questionId && storage.getItem(legacyDraftKey(previous.questionId)) === null) storage.setItem(legacyDraftKey(previous.questionId), existing);
     }
     storage.setItem(draftKey, JSON.stringify(draft)); return true;
   } catch { return false; }

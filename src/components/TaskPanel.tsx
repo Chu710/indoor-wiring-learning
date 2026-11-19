@@ -5,6 +5,7 @@ import { wiringSegments, type WiringSegment } from '../b11/segments';
 interface Props {
   diagnostics: Diagnostic[];
   checked: boolean;
+  segmentChecked?: boolean;
   hintLevel: number;
   motor: MotorState;
   color: WireColor;
@@ -38,20 +39,20 @@ export function TaskPanel(props: Props) {
   const ready = checked && diagnostics.length === 0;
   return <aside className="task-panel" aria-label="任務面板">
     <h2>練習步驟</h2>
-    <ol><li>選線色、連接控制端子</li><li>檢查控制迴路接線</li><li>操作控制狀態示範</li></ol>
+    <ol><li>選線色、連接圖面端子</li><li>檢查控制、主電路與接地</li><li>操作虛擬通電測試</li></ol>
     <h3>分段練習｜第 {segmentNumber} / {segmentCount} 段</h3>
     <p className="segment-description">{segment.title}<br />{segment.description}</p>
     <div className="actions"><button className="primary" onClick={() => props.onCheckSegment?.()}>檢查本段接線</button>{props.segmentComplete && segmentNumber < segmentCount && <button onClick={() => props.onNextSegment?.()}>進入下一段</button>}</div>
     <h3>電線顏色</h3>
     <div className="color-picker">{colors.map((item) => <button key={item.id} className={color === item.id ? 'chosen' : ''} onClick={() => props.onColor(item.id)} aria-label={`${item.name}色線`} aria-pressed={color === item.id}><i style={{ background: item.id }} />{item.name}</button>)}</div>
-    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查示範接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入介面示範接線</button>}</div>
-    {checked && <div className={`check-result ${issue?.kind ?? 'success'}`} role="status">
-      {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : <><strong>與內建示範接線一致</strong><p>可以操作下方狀態示範；目前尚未完成官方 B11 配線驗證。</p></>}
-      {issue && <><button onClick={props.onHint}>顯示提示</button>{hintLevel >= 2 && <p>{issue.guidance}</p>}{hintLevel >= 3 && <p>相關端子：{issue.terminals.join('、')}</p>}<button onClick={props.onShowAnswer}>查看完整參考接線</button></>}
+    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查圖面接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入圖面參考接線（測試用）</button>}</div>
+    {(checked || props.segmentChecked) && <div className={`check-result ${issue?.kind ?? 'success'}`} role="status">
+      {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : checked ? <><strong>與內建圖面接線一致</strong><p>可操作下方虛擬通電測試；實體器材的端子與安全仍需另行核對。</p></> : <><strong>本段接線完成</strong><p>可進入下一段；虛擬通電測試須先檢查整題接線。</p></>}
+      {issue && <><button onClick={props.onHint}>顯示提示</button>{hintLevel >= 2 && <p>{issue.guidance}</p>}{hintLevel >= 3 && <p>相關端子：{issue.terminals.join('、')}</p>}<button onClick={props.onShowAnswer}>逐組查看參考接線</button></>}
     </div>}
-    {answerVisible && <p className="answer-note">參考接線已顯示於工作區，請對照每一組電氣節點。教學端子號碼需依現場器材確認。</p>}
-    <h3>控制狀態示範</h3>
-    <p>按鈕依預設邏輯切換畫面狀態，尚未依你接的線計算通電結果。</p>
+    {answerVisible && <p className="answer-note">工作區一次顯示一組參考節點，可按「上一組／下一組」查看。教學端子號碼需依現場器材確認。</p>}
+    <h3>虛擬通電測試</h3>
+    <p>依目前接線與虛擬接點計算線圈、燈號、蜂鳴器及馬達方向；不會控制實體電源。</p>
     <p className={`motor-status ${motor.overloaded ? 'danger' : ''}`}>預期馬達狀態：{motor.overloaded ? '過載跳脫' : motor.direction === 'forward' ? '正轉' : motor.direction === 'reverse' ? '反轉' : '停止'}</p>
     <p>MCF：{motor.mcf ? '吸合' : '釋放'}　MCR：{motor.mcr ? '吸合' : '釋放'}</p>
     <p>R1：{motor.lamps.forward ? '亮' : '滅'}　R2：{motor.lamps.reverse ? '亮' : '滅'}　G：{motor.lamps.stopped ? '亮' : '滅'}</p>

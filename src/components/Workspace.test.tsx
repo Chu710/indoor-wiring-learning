@@ -37,6 +37,10 @@ describe('workspace wiring', () => {
     expect(screen.queryByLabelText('參考接線圖層')).toBeNull();
     rerender(<Workspace {...props} answerVisible />);
     expect(screen.getByLabelText('參考接線圖層')).toBeTruthy();
+    expect(screen.getByLabelText('參考接線圖層').querySelectorAll('path')).toHaveLength(1);
+    fireEvent.click(screen.getByRole('button', { name: '下一組參考節點' }));
+    fireEvent.click(screen.getByRole('button', { name: '下一組參考節點' }));
+    expect(screen.getByLabelText('參考接線圖層').querySelectorAll('path')).toHaveLength(4);
   });
   it('places a part dropped from the component library', () => {
     const onMovePart = vi.fn();
@@ -62,7 +66,7 @@ describe('workspace wiring', () => {
     render(<Workspace question={b11Question} wires={wires} color="red" onAddWire={vi.fn()} onRemoveWire={vi.fn()} onMovePart={vi.fn()} />);
     expect(screen.getByLabelText('電線').querySelectorAll('g[role="button"]')).toHaveLength(1);
     fireEvent.click(screen.getByRole('button', { name: /查看第 1 條線/ }));
-    expect(screen.getAllByText(/單相 220V 電源 第 1 排左端 → 無熔絲開關 NFB 第 1 排左端/)).toHaveLength(2);
+    expect(screen.getAllByText(/單相 220V 電源・A（第 1 排左端） → 無熔絲開關 NFB・L1（第 1 排左端）/)).toHaveLength(2);
     fireEvent.click(screen.getByRole('button', { name: '顯示全部電線' }));
     expect(screen.getByLabelText('電線').querySelectorAll('g[role="button"]')).toHaveLength(2);
   });

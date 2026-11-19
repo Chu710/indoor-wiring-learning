@@ -12,7 +12,7 @@ export interface Terminal {
 export interface Part {
   id: string;
   name: string;
-  kind: 'supply' | 'breaker' | 'fuse' | 'contactor' | 'overload' | 'button' | 'lamp' | 'buzzer' | 'motor';
+  kind: 'supply' | 'breaker' | 'fuse' | 'contactor' | 'overload' | 'button' | 'lamp' | 'buzzer' | 'motor' | 'terminal-block' | 'earth';
   x: number;
   y: number;
   terminals: Terminal[];

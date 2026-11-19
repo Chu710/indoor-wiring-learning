@@ -7,7 +7,11 @@ export function validateWiring(question: B11Question, wires: Wire[], referenceNe
   const expected = new Map(referenceNets.flatMap((net, index) => net.map((id): [string, number] => [id, index])));
   const result: Diagnostic[] = [];
   for (const [a, b] of question.dangerPairs) {
-    if (group.get(a) === group.get(b)) result.push({ kind: 'danger', message: '電源兩側短接，禁止通電', terminals: [a, b], area: '電源與開關', guidance: '檢查兩側電源線有沒有接在同一個節點。' });
+    if (group.get(a) === group.get(b)) result.push({ kind: 'danger', message: a === 'earth.PE' ? '保護接地誤接電源，禁止通電' : '電源兩側短接，禁止通電', terminals: [a, b], area: '電源與接地', guidance: '檢查電源兩側與保護接地是否被接在同一個節點。' });
+  }
+  const earthPins = new Set(['earth.PE', 'tb5.1', 'tb1.1', 'motor.PE']);
+  for (const wire of wires) {
+    if (wire.color !== 'green' && (earthPins.has(wire.from) || earthPins.has(wire.to))) result.push({ kind: 'danger', message: '保護接地線請使用綠色', terminals: [wire.from, wire.to], area: '保護接地', guidance: '這個練習以綠色代表保護接地；請重新選線色並連接接地端子。' });
   }
   for (const net of nets) {
     const expectedGroups = new Set([...net].map((id) => expected.get(id)).filter((id) => id !== undefined));

@@ -31,8 +31,12 @@ describe('local practice records', () => {
     const newDraft = { ...oldDraft, questionId: 'b11-q2-control-circuit-v2' };
     saveDraft(storage, oldDraft);
     expect(saveDraft(storage, newDraft)).toBe(true);
-    expect(storage.getItem('b11-draft-legacy-v1')).toBe(JSON.stringify(oldDraft));
+    expect(storage.getItem('b11-draft-legacy-b11-q2-motor-control')).toBe(JSON.stringify(oldDraft));
     expect(loadDraft(storage)).toEqual(newDraft);
+    const finalDraft = { ...oldDraft, questionId: 'b11-q2-schematic-v3' };
+    expect(saveDraft(storage, finalDraft)).toBe(true);
+    expect(storage.getItem('b11-draft-legacy-b11-q2-motor-control')).toBe(JSON.stringify(oldDraft));
+    expect(storage.getItem('b11-draft-legacy-b11-q2-control-circuit-v2')).toBe(JSON.stringify(newDraft));
   });
   it('does not restore malformed wire entries', () => {
     const storage = makeStorage();

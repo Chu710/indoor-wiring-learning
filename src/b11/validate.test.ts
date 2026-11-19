@@ -4,7 +4,7 @@ import { validateWiring } from './validate';
 import { wiringSegments } from './segments';
 import type { Wire } from './types';
 
-const wire = (from: string, to: string): Wire => ({ id: `${from}-${to}`, from, to, color: 'red', createdAt: 1 });
+const wire = (from: string, to: string): Wire => ({ id: `${from}-${to}`, from, to, color: ['earth.PE', 'tb5.1', 'tb1.1', 'motor.PE'].includes(from) ? 'green' : 'red', createdAt: 1 });
 const reference = b11Question.referenceNets.flatMap((net) => net.slice(1).map((pin) => wire(net[0], pin)));
 
 describe('wiring diagnostics', () => {
@@ -22,6 +22,12 @@ describe('wiring diagnostics', () => {
   it('puts a phase short ahead of missing-wire issues', () => {
     const result = validateWiring(b11Question, [wire('nfb.T1', 'nfb.T2')]);
     expect(result[0].kind).toBe('danger');
+  });
+  it('rejects a live connection to earth and a non-green earth wire', () => {
+    const short = validateWiring(b11Question, [wire('earth.PE', 'nfb.T1')]);
+    expect(short[0].kind).toBe('danger');
+    const wrongColor = validateWiring(b11Question, [{ ...wire('earth.PE', 'tb5.1'), color: 'red' }]);
+    expect(wrongColor.some((issue) => issue.message.includes('綠色'))).toBe(true);
   });
   it('rejects an extra connection between distinct nets', () => {
     expect(validateWiring(b11Question, [...reference, wire('mcf.A1', 'mcr.A1')]).length).toBeGreaterThan(0);
