@@ -44,13 +44,13 @@ export function TaskPanel(props: Props) {
     <div className="actions"><button className="primary" onClick={() => props.onCheckSegment?.()}>檢查本段接線</button>{props.segmentComplete && segmentNumber < segmentCount && <button onClick={() => props.onNextSegment?.()}>進入下一段</button>}</div>
     <h3>電線顏色</h3>
     <div className="color-picker">{colors.map((item) => <button key={item.id} className={color === item.id ? 'chosen' : ''} onClick={() => props.onColor(item.id)} aria-label={`${item.name}色線`} aria-pressed={color === item.id}><i style={{ background: item.id }} />{item.name}</button>)}</div>
-    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入正確接線（測試用）</button>}</div>
+    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查示範接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入介面示範接線</button>}</div>
     {checked && <div className={`check-result ${issue?.kind ?? 'success'}`} role="status">
-      {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : <><strong>接線檢查通過</strong><p>可以進行模擬通電。</p></>}
+      {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : <><strong>與內建示範接線一致</strong><p>可以操作下方狀態示範；目前尚未完成官方 B11 配線驗證。</p></>}
       {issue && <><button onClick={props.onHint}>顯示提示</button>{hintLevel >= 2 && <p>{issue.guidance}</p>}{hintLevel >= 3 && <p>相關端子：{issue.terminals.join('、')}</p>}<button onClick={props.onShowAnswer}>查看完整參考接線</button></>}
     </div>}
     {answerVisible && <p className="answer-note">參考接線已顯示於工作區，請對照每一組電氣節點。教學端子號碼需依現場器材確認。</p>}
-    <h3>通電測試</h3>
+    <h3>控制狀態示範</h3>
     <p className={`motor-status ${motor.overloaded ? 'danger' : ''}`}>馬達：{motor.overloaded ? '過載跳脫' : motor.direction === 'forward' ? '正轉' : motor.direction === 'reverse' ? '反轉' : '停止'}</p>
     <p>MCF：{motor.mcf ? '吸合' : '釋放'}　MCR：{motor.mcr ? '吸合' : '釋放'}</p>
     <p>R1：{motor.lamps.forward ? '亮' : '滅'}　R2：{motor.lamps.reverse ? '亮' : '滅'}　G：{motor.lamps.stopped ? '亮' : '滅'}</p>

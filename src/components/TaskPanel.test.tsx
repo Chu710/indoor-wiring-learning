@@ -29,7 +29,7 @@ describe('task guidance', () => {
   it('offers a complete reference wiring load for testing', () => {
     const onLoadReference = vi.fn();
     render(<TaskPanel diagnostics={[]} checked={false} hintLevel={0} motor={initialMotorState} color="red" onColor={vi.fn()} onCheck={vi.fn()} onHint={vi.fn()} onShowAnswer={vi.fn()} onReset={vi.fn()} onMotorAction={vi.fn()} onClear={vi.fn()} onLoadReference={onLoadReference} answerVisible={false} />);
-    fireEvent.click(screen.getByRole('button', { name: '載入正確接線（測試用）' }));
+    fireEvent.click(screen.getByRole('button', { name: '載入介面示範接線' }));
     expect(onLoadReference).toHaveBeenCalledOnce();
   });
 });
