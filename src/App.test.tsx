@@ -42,4 +42,20 @@ describe('B11 practice screen', () => {
     expect(screen.getByText('圖面練習完成')).toBeTruthy();
     expect(loadRecords(window.localStorage)).toHaveLength(1);
   });
+  it('loads the reference through the UI and runs the wired controls', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '載入圖面參考接線（測試用）' }));
+    fireEvent.click(screen.getByRole('button', { name: '檢查圖面接線' }));
+    expect(screen.getByText('與內建圖面接線一致')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '正轉' }));
+    expect(screen.getByText('預期馬達狀態：正轉')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '停止' }));
+    fireEvent.click(screen.getByRole('button', { name: '反轉' }));
+    expect(screen.getByText('預期馬達狀態：反轉')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '過載跳脫' }));
+    expect(screen.getByText('BZ：鳴響')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '復歸' }));
+    expect(screen.getByText('預期馬達狀態：停止')).toBeTruthy();
+    expect(screen.getByText('BZ：靜音')).toBeTruthy();
+  });
 });

@@ -40,9 +40,9 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .wire-layer .reference-wires { pointer-events: none; opacity: .75; }
 .visible-wire { filter: drop-shadow(0 1px 2px #000); }
 .circuit-part { position: absolute; width: 108px; min-height: 84px; background: #e8f1fa; color: #16243b; border: 2px solid #6a9dc5; border-radius: 8px; z-index: 2; }
-.part-title { cursor: grab; padding: 6px 8px; min-height: 34px; font-weight: 700; font-size: 13px; line-height: 1.2; text-align: center; }
+.part-title { cursor: grab; padding: 4px 6px; min-height: 44px; font-weight: 700; font-size: 13px; line-height: 1.2; text-align: center; }
 .terminal { position: absolute; width: 18px; height: 18px; border-radius: 50%; padding: 0; background: #f8c857; border: 2px solid #9f6320; z-index: 4; }
-.terminal span { position: absolute; top: -2px; left: 17px; background: #e8f1fa; border-radius: 3px; padding: 0 2px; font-size: 11px; white-space: nowrap; }
+.terminal span { position: absolute; top: -2px; left: 17px; background: #e8f1fa; color: #16243b; border-radius: 3px; padding: 0 2px; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .terminal:nth-child(odd) span { left: auto; right: 17px; }
 .terminal.active { outline: 4px solid #52e1d3; }
 .terminal.focused-terminal { outline: 5px solid #f7d473; box-shadow: 0 0 0 8px #f7d47355; }

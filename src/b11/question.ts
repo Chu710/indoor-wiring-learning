@@ -6,7 +6,7 @@ const terminal = (partId: string, label: string, x: number, y: number): Terminal
 });
 const part = (id: string, name: string, kind: Part['kind'], x: number, y: number, labels: string[]): Part => ({
   id, name, kind, x, y,
-  terminals: labels.map((label, index) => terminal(id, label, index % 2 ? 106 : 0, 36 + Math.floor(index / 2) * 24)),
+  terminals: labels.map((label, index) => terminal(id, label, index % 2 ? 106 : 0, 52 + Math.floor(index / 2) * 24)),
 });
 
 // Source: official 007003B11.pdf, printed pp. 15–20; printed p. 20 shows the
@@ -20,21 +20,21 @@ export const b11Question: B11Question = {
   parts: [
     part('supply', '單相 220V 電源', 'supply', 40, 70, ['A', 'B']),
     part('nfb', '無熔絲開關 NFB', 'breaker', 210, 70, ['L1', 'L2', 'T1', 'T2']),
-    part('pf-a', '控制保險絲 PF-A', 'fuse', 40, 170, ['L', 'T']),
-    part('pf-b', '控制保險絲 PF-B', 'fuse', 210, 170, ['L', 'T']),
+    part('pf-a', '保險絲 PF-A', 'fuse', 40, 170, ['L', 'T']),
+    part('pf-b', '保險絲 PF-B', 'fuse', 210, 170, ['L', 'T']),
     part('stop', '停止 OFF（常閉）', 'button', 40, 280, ['1', '2']),
     part('forward', '正轉 FWD（常開）', 'button', 210, 280, ['1', '2']),
     part('reverse', '反轉 REV（常開）', 'button', 210, 390, ['1', '2']),
     part('mcf', '正轉接觸器 MCF', 'contactor', 410, 220, ['A1', 'A2', '13', '14', '21', '22', '31', '32', 'P1L', 'P1T', 'P2L', 'P2T', 'P3L', 'P3T']),
     part('mcr', '反轉接觸器 MCR', 'contactor', 410, 500, ['A1', 'A2', '13', '14', '21', '22', '31', '32', 'P1L', 'P1T', 'P2L', 'P2T', 'P3L', 'P3T']),
-    part('thry', '積熱電驛 TH-RY', 'overload', 610, 310, ['95', '96', '97', '98', 'H1I', 'H1O', 'H2I', 'H2O']),
+    part('thry', '積熱電驛', 'overload', 610, 310, ['95', '96', '97', '98', 'H1I', 'H1O', 'H2I', 'H2O']),
     part('lamp-f', '正轉燈 R1', 'lamp', 810, 215, ['1', '2']),
     part('lamp-r', '反轉燈 R2', 'lamp', 810, 330, ['1', '2']),
     part('lamp-g', '停止燈 G', 'lamp', 810, 445, ['1', '2']),
     part('buzzer', '蜂鳴器 BZ', 'buzzer', 810, 560, ['1', '2']),
-    part('tb5', '端子台 TB5（圖面左起）', 'terminal-block', 1030, 390, ['1', '2', '3', '4', '5', '6', '7']),
-    part('tb1', '端子台 TB1（圖面左起）', 'terminal-block', 1210, 390, ['1', '2', '3', '4', '5', '6', '7']),
-    part('motor', '單相馬達（圖面端點）', 'motor', 1210, 610, ['PE', '2', '3', '4', '5', '6', '7']),
+    part('tb5', '端子台 TB5', 'terminal-block', 1030, 390, ['1', '2', '3', '4', '5', '6', '7']),
+    part('tb1', '端子台 TB1', 'terminal-block', 1210, 390, ['1', '2', '3', '4', '5', '6', '7']),
+    part('motor', '單相馬達', 'motor', 1210, 610, ['PE', '2', '3', '4', '5', '6', '7']),
     part('earth', '保護接地', 'earth', 1030, 610, ['PE']),
   ],
   referenceNets: [

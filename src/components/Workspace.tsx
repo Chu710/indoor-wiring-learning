@@ -77,7 +77,7 @@ export function Workspace({ question, wires, color, answerVisible = false, onAdd
           </g>;
         })}
       </svg>
-      {question.parts.map((part) => <div key={part.id} className={`circuit-part ${part.kind}`} style={{ left: part.x, top: part.y, height: Math.max(84, 44 + Math.ceil(part.terminals.length / 2) * 24) }}>
+      {question.parts.map((part) => <div key={part.id} className={`circuit-part ${part.kind}`} style={{ left: part.x, top: part.y, height: Math.max(84, 60 + Math.ceil(part.terminals.length / 2) * 24) }}>
         <div className="part-title" draggable onDragEnd={(event) => {
           const box = event.currentTarget.closest('.workspace-stage')?.getBoundingClientRect();
           if (box && event.clientX && event.clientY) onMovePart(part.id, Math.max(0, (event.clientX - box.left) / zoom), Math.max(0, (event.clientY - box.top) / zoom));
