@@ -62,11 +62,15 @@ export default function App() {
     if (storage) clearDraft(storage); setQuestion(b11Question); setWires([]); setColor('red'); setStartedAt(Date.now()); setAnswerVisible(false); setCheckCount(0); setErrorCounts({ danger: 0, structure: 0, function: 0 }); setHintCount(0); setCompleted(false); resetCheck();
   };
   const motorAction = (action: MotorAction) => setMotor((state) => nextMotorState(state, action));
+  const loadReference = () => {
+    const referenceWires = b11Question.referenceNets.flatMap((net) => net.slice(1).map((to, index) => ({ id: `reference-${net[0]}-${index}`, from: net[index], to, color: 'red' as WireColor, createdAt: Date.now() })));
+    setWires(referenceWires); setAnswerVisible(true); resetCheck();
+  };
   return <main className="app-shell">
     <header><div><p>室內配線丙級｜術科互動練習</p><h1>{question.title}</h1><small>依官方 B11 第二題控制原理設計；端子編號為教學標示，實際器材須核對。</small></div><div className="header-meta"><span>{completed ? '練習完成' : '練習中'}</span><strong>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</strong></div></header>
     <PartsPanel question={question} />
     <Workspace question={question} wires={wires} color={color} answerVisible={answerVisible} onAddWire={addWire} onRemoveWire={(id) => { setWires((existing) => existing.filter((wire) => wire.id !== id)); resetCheck(); }} onMovePart={(id, x, y) => setQuestion((existing) => ({ ...existing, parts: existing.parts.map((part) => part.id === id ? { ...part, x, y } : part) }))} />
-    <TaskPanel diagnostics={diagnostics} checked={checked} hintLevel={hintLevel} motor={motor} color={color} answerVisible={answerVisible} onColor={setColor} onCheck={check} onHint={() => { setHintLevel((level) => Math.min(3, level + 1)); setHintCount((count) => count + 1); }} onShowAnswer={() => { setAnswerVisible(true); setHintCount((count) => count + 1); }} onReset={reset} onClear={() => { setWires([]); resetCheck(); }} onMotorAction={motorAction} />
+    <TaskPanel diagnostics={diagnostics} checked={checked} hintLevel={hintLevel} motor={motor} color={color} answerVisible={answerVisible} onColor={setColor} onCheck={check} onHint={() => { setHintLevel((level) => Math.min(3, level + 1)); setHintCount((count) => count + 1); }} onShowAnswer={() => { setAnswerVisible(true); setHintCount((count) => count + 1); }} onReset={reset} onClear={() => { setWires([]); resetCheck(); }} onLoadReference={loadReference} onMotorAction={motorAction} />
     <div className="practice-footer" role="status">檢查 {checkCount} 次 · 錯誤 {errorCounts.danger + errorCounts.structure + errorCounts.function} 次 · 提示 {hintCount} 次 · 已完成 {historyCount} 次{storageWarning && <strong>　本機儲存失敗，這次紀錄可能無法保留。</strong>}</div>
   </main>;
 }

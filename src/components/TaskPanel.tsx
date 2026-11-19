@@ -14,6 +14,7 @@ interface Props {
   onShowAnswer: () => void;
   onReset: () => void;
   onClear: () => void;
+  onLoadReference?: () => void;
   onMotorAction: (action: MotorAction) => void;
 }
 
@@ -30,7 +31,7 @@ export function TaskPanel(props: Props) {
     <ol><li>選線色、連接端子</li><li>檢查所有電氣節點</li><li>執行馬達控制測試</li></ol>
     <h3>電線顏色</h3>
     <div className="color-picker">{colors.map((item) => <button key={item.id} className={color === item.id ? 'chosen' : ''} onClick={() => props.onColor(item.id)} aria-label={`${item.name}色線`} aria-pressed={color === item.id}><i style={{ background: item.id }} />{item.name}</button>)}</div>
-    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查接線</button><button onClick={props.onClear}>清除全部電線</button></div>
+    <div className="actions"><button className="primary" onClick={props.onCheck}>檢查接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入正確接線（測試用）</button>}</div>
     {checked && <div className={`check-result ${issue?.kind ?? 'success'}`} role="status">
       {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : <><strong>接線檢查通過</strong><p>可以進行模擬通電。</p></>}
       {issue && <><button onClick={props.onHint}>顯示提示</button>{hintLevel >= 2 && <p>{issue.guidance}</p>}{hintLevel >= 3 && <p>相關端子：{issue.terminals.join('、')}</p>}<button onClick={props.onShowAnswer}>查看完整參考接線</button></>}
