@@ -30,10 +30,21 @@ describe('B11 practice screen', () => {
     }
     expect(screen.getByText('7 / 8 題答對')).toBeTruthy();
     expect(loadTheoryResults(window.localStorage)).toHaveLength(1);
+    fireEvent.click(screen.getByRole('button', { name: '重練 1 題錯題' }));
+    expect(screen.getByText(/第 1 \/ 1 題/)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '術科配線' }));
+    fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    expect(screen.getByText(/第 1 \/ 1 題/)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '1. 3 Hz' }));
+    fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
+    fireEvent.click(screen.getByRole('button', { name: '查看成績' }));
+    expect(screen.getByText('1 / 1 題答對')).toBeTruthy();
+    expect(loadTheoryResults(window.localStorage)).toHaveLength(1);
     app.unmount();
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
     expect(screen.getByText('這台電腦已完成 1 次學科練習。')).toBeTruthy();
+    expect(screen.getByText('第 1 次：7 / 8 題答對')).toBeTruthy();
   });
   it('shows segment errors without enabling the virtual power test', () => {
     render(<App />);

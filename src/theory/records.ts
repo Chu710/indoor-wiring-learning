@@ -9,6 +9,8 @@ export interface TheoryDraft {
   selection: number | null;
   submitted: boolean;
   answers: number[];
+  mode?: 'full' | 'review';
+  questionIds?: string[];
 }
 
 export interface TheoryResult {
@@ -43,7 +45,13 @@ export function loadTheoryDraft(storage: Storage): TheoryDraft | null {
     const parsed: unknown = JSON.parse(storage.getItem(draftKey) ?? 'null');
     if (!parsed || typeof parsed !== 'object') return null;
     const draft = parsed as Partial<TheoryDraft>;
-    if (typeof draft.startedAt !== 'number' || !Number.isInteger(draft.index) || draft.index! < 0 || draft.index! >= motorTheoryQuestions.length || typeof draft.submitted !== 'boolean' || !Array.isArray(draft.answers) || draft.answers.some((answer) => !Number.isInteger(answer) || answer < 0 || answer > 3) || draft.answers.length !== draft.index! + (draft.submitted ? 1 : 0) || !(draft.selection === null || Number.isInteger(draft.selection) && draft.selection! >= 0 && draft.selection! <= 3)) return null;
+    const allIds = motorTheoryQuestions.map((question) => question.id);
+    const questionIds = draft.questionIds ?? allIds;
+    const mode = draft.mode ?? 'full';
+    if (!Array.isArray(questionIds) || questionIds.length === 0 || questionIds.some((id) => typeof id !== 'string' || !allIds.includes(id)) || new Set(questionIds).size !== questionIds.length) return null;
+    if (mode !== 'full' && mode !== 'review') return null;
+    if (mode === 'full' && questionIds.join('|') !== allIds.join('|')) return null;
+    if (typeof draft.startedAt !== 'number' || !Number.isInteger(draft.index) || draft.index! < 0 || draft.index! >= questionIds.length || typeof draft.submitted !== 'boolean' || !Array.isArray(draft.answers) || draft.answers.some((answer) => !Number.isInteger(answer) || answer < 0 || answer > 3) || draft.answers.length !== draft.index! + (draft.submitted ? 1 : 0) || !(draft.selection === null || Number.isInteger(draft.selection) && draft.selection! >= 0 && draft.selection! <= 3)) return null;
     return draft as TheoryDraft;
   } catch { return null; }
 }

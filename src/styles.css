@@ -104,8 +104,11 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .theory-feedback.incorrect { background: #422930; border: 1px solid #ec7d7d; }
 .theory-feedback p { margin-bottom: 0; }
 .theory-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+.theory-result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .theory-review { display: grid; gap: 12px; padding-left: 20px; line-height: 1.6; }
 .theory-history { color: #a9bfdc; font-size: 14px; }
 .theory-history strong { color: #ffb0a9; }
+.theory-records { border-top: 1px solid #3c5574; margin-top: 20px; padding-top: 4px; color: #c6d5e8; }
+.theory-records ol { padding-left: 22px; line-height: 1.8; }
 @media(max-width: 1100px) { .app-shell { grid-template-columns: 170px minmax(420px,1fr) 230px; gap: 8px; padding: 8px; } }
 @media(max-width: 700px) { .theory-intro { display: block; } .theory-card { padding: 16px; } .mode-nav { justify-content: flex-start; } header { align-items: flex-start; gap: 12px; flex-direction: column; } .header-meta { text-align: left; } }
