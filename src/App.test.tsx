@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import { b11Question } from './b11/question';
@@ -10,6 +10,31 @@ afterEach(cleanup);
 beforeEach(() => { window.localStorage.clear(); window.history.replaceState(null, '', '#practical'); });
 
 describe('B11 practice screen', () => {
+  it('reviews eight wrong answers and keeps the full quiz record unchanged', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    for (let index = 0; index < motorTheoryQuestions.length; index += 1) {
+      const question = motorTheoryQuestions[index];
+      const wrong = (question.answer + 1) % question.choices.length;
+      fireEvent.click(screen.getByRole('button', { name: `${wrong + 1}. ${question.choices[wrong]}` }));
+      fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
+      fireEvent.click(screen.getByRole('button', { name: index === motorTheoryQuestions.length - 1 ? '查看成績' : '下一題' }));
+    }
+    expect(screen.getByText('0 / 8 題答對')).toBeTruthy();
+    expect(within(screen.getByRole('status')).getAllByRole('listitem')).toHaveLength(8);
+    expect(loadTheoryResults(window.localStorage)).toHaveLength(1);
+    expect(loadTheoryResults(window.localStorage)[0].score).toBe(0);
+    fireEvent.click(screen.getByRole('button', { name: '重練 8 題錯題' }));
+    for (let index = 0; index < motorTheoryQuestions.length; index += 1) {
+      const question = motorTheoryQuestions[index];
+      fireEvent.click(screen.getByRole('button', { name: `${question.answer + 1}. ${question.choices[question.answer]}` }));
+      fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
+      fireEvent.click(screen.getByRole('button', { name: index === motorTheoryQuestions.length - 1 ? '查看成績' : '下一題' }));
+    }
+    expect(screen.getByText('8 / 8 題答對')).toBeTruthy();
+    expect(screen.getByText('全部答對。')).toBeTruthy();
+    expect(loadTheoryResults(window.localStorage)).toHaveLength(1);
+  });
   it('resumes the theory quiz after switching views and saves a completed attempt', () => {
     const app = render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'supply.A' }));
