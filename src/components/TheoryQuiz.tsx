@@ -69,6 +69,13 @@ export function TheoryQuiz() {
       </div>
       <a href="https://owinform.wdasec.gov.tw/owInform/DLowFile/007003A13.pdf" target="_blank" rel="noreferrer">查看官方題庫 PDF</a>
     </div>
+    <div className="exam-rules" aria-label="正式考試規格">
+      <h3>丙級學科正式考試規格</h3>
+      <div className="exam-rules-grid"><span>正式考試：80 題</span><span>100 分鐘</span><span>每題 1.25 分</span><span>答對 48 題及格</span></div>
+      <p>滿分 100 分，60 分及格，答錯不倒扣。一般配置為專業題 64 題，加上四項共用工作項目各 4 題、共 16 題。</p>
+      <p><strong>目前只有 8 題入門練習，尚無正式 80 題模擬考。</strong>這裡的 8 題成績只是練習結果，不能當作正式考試分數。</p>
+      <small>規則來源：<a href="https://www.wdasec.gov.tw/News_Content.aspx?n=611E645F4BAB689F&s=C01442902F63E8F8&sms=47C68486FEC19CA4" target="_blank" rel="noreferrer">技能檢定中心考試說明</a>、<a href="https://www.wdasec.gov.tw/News_Content.aspx?n=25D08F3407C71E8F&s=5A79A08661B15374&sms=1BE761BDBCE7C913" target="_blank" rel="noreferrer">共用題抽題比例公告</a>、<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0080014" target="_blank" rel="noreferrer">及格分數規定</a>。</small>
+    </div>
     {result ? <div className="theory-card" role="status">
       <p className="eyebrow">{mode === 'review' ? '錯題重練結果' : '本次成績'}</p>
       <h3>{result.score} / {result.total} 題答對</h3>

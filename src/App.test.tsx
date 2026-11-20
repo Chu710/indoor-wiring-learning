@@ -15,6 +15,10 @@ describe('B11 practice screen', () => {
     fireEvent.click(screen.getByRole('button', { name: 'supply.A' }));
     fireEvent.click(screen.getByRole('button', { name: 'nfb.L1' }));
     fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
+    expect(screen.getByText('正式考試：80 題')).toBeTruthy();
+    expect(screen.getByText('100 分鐘')).toBeTruthy();
+    expect(screen.getByText('答對 48 題及格')).toBeTruthy();
+    expect(screen.getByText(/目前只有 8 題入門練習/)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: '2. 6 Hz' }));
     fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
     fireEvent.click(screen.getByRole('button', { name: '下一題' }));
