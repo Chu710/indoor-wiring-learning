@@ -81,6 +81,12 @@ export const b11Question1: PracticalQuestion = {
   fixedConnections: [],
   dangerPairs: [
     ['supply.A', 'supply.B'], ['nfb.T1', 'nfb.T2'], ['earth.PE', 'supply.A'], ['earth.PE', 'supply.B'], ['earth.PE', 'nfb.T1'], ['earth.PE', 'nfb.T2'],
+    ['mc.A2', 'fuse-b.T'],
   ],
   segments: q1WiringSegments,
+  functionalRules: [
+    { id: 'manual-control', area: '手動控制', message: 'MC 手動控制路徑尚未完整', guidance: '檢查 COS 手動端、PB2、PB1、自保持接點、MC 線圈與積熱電驛常閉接點。', terminals: ['cos.M', 'pb2.1', 'pb2.2', 'pb1.1', 'pb1.2', 'mc.13', 'mc.14', 'mc.A1', 'mc.A2', 'thry.95', 'thry.96'] },
+    { id: 'automatic-level', area: '給水源液位', message: '自動液位控制路徑尚未完整', guidance: '檢查 COS 自動端、61F-G1、TB4 與水槽／給水源電極。', terminals: ['cos.A', 'level.U1', 'level.U2', 'level.E3', 'level.E2', 'level.E1', "level.E2'", "level.E1'", "source-electrodes.E2'", "source-electrodes.E1'", 'tank-electrodes.E2', 'tank-electrodes.E1'] },
+    { id: 'dry-alarm', area: '缺水警報', message: '缺水警報或 PB3 消音路徑尚未完整', guidance: '檢查 61F-G1 的 S1/S2、警報輔助繼電器 X、PB3 與蜂鳴器。', terminals: ['level.S1', 'level.S2', 'relay-x.A1', 'relay-x.13', 'relay-x.14', 'pb3.1', 'pb3.2', 'buzzer.1', 'buzzer.2'] },
+  ],
 };

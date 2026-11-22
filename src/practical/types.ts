@@ -54,6 +54,14 @@ export interface WiringSegment {
 export type PracticalQuestionId = 'b11-q1-liquid-level' | 'b11-q2-internal-wireway-v5';
 export type SimulatorKind = 'liquid-level' | 'reverse-motor';
 
+export interface FunctionalRule {
+  id: string;
+  area: string;
+  message: string;
+  guidance: string;
+  terminals: string[];
+}
+
 export interface PracticalQuestion extends WiringQuestion {
   id: PracticalQuestionId;
   number: 1 | 2;
@@ -61,4 +69,5 @@ export interface PracticalQuestion extends WiringQuestion {
   simulatorKind: SimulatorKind;
   schematic: { src: string; alt: string; sourceLabel: string };
   segments: WiringSegment[];
+  functionalRules?: FunctionalRule[];
 }
