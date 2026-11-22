@@ -22,6 +22,13 @@ h3 { margin: 20px 0 8px; font-size: 16px; }
 .mode-nav { display: flex; gap: 6px; justify-content: flex-end; }
 .mode-nav button { padding: 6px 10px; font-size: 14px; white-space: nowrap; }
 .mode-nav button[aria-pressed="true"] { background: #146d91; border-color: #3ac5f1; }
+.practical-question-nav { grid-column: 1 / -1; display: flex; gap: 8px; padding: 10px; background: #1b283d; border: 1px solid #344761; border-radius: 12px; }
+.practical-question-nav button { flex: 1; font-weight: 700; }
+.practical-question-nav button[aria-pressed="true"] { background: #146d91; border-color: #3ac5f1; }
+.practical-summary { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 9px 14px; background: #1b283d; border: 1px solid #344761; border-radius: 10px; }
+.practical-summary strong { flex: 1; }
+.practical-summary span { color: #76dfb7; }
+.practical-summary time { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
 aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 14px; padding: 15px; min-height: 0; }
 .parts-panel, .task-panel { overflow-y: auto; max-height: calc(100vh - 130px); }
 .parts-panel p, .workspace-help { color: #a9bfdc; font-size: 14px; }
@@ -36,19 +43,31 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .workspace-toolbar span { font-size: 14px; color: #b9c9e1; white-space: nowrap; }
 .workspace-toolbar button { padding: 5px 8px; font-size: 14px; }
 .workspace-help { margin: 8px 0; }
+.layout-reference { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.layout-reference p { flex: 1; line-height: 1.4; }
+.layout-reference button { flex: 0 0 auto; font-size: 13px; }
+.connection-status { color: #f7d473; font-size: 14px; margin: 0 0 8px; min-height: 20px; }
 .workspace-scroll { overflow: auto; flex: 1; min-height: 420px; background: #102036; border: 1px solid #3c5574; border-radius: 10px; }
 .workspace-stage { position: relative; width: 1380px; height: 900px; background-image: linear-gradient(#24405a 1px,transparent 1px), linear-gradient(90deg,#24405a 1px,transparent 1px); background-size: 25px 25px; }
+.cabinet-zone, .external-zone { position: absolute; top: 8px; height: 878px; z-index: 0; border-radius: 9px; }
+.cabinet-zone { left: 10px; width: 956px; background: #d3d8d8; border: 10px solid #66727a; box-shadow: inset 0 0 0 3px #a9b4b9; }
+.external-zone { left: 986px; width: 382px; background: #deebef; border: 4px solid #8da7b1; }
+.cabinet-zone strong, .external-zone strong { position: absolute; top: 8px; left: 14px; color: #243c46; font-size: 13px; }
+.wireway-layer { position: absolute; inset: 0; width: 1380px; height: 900px; z-index: 1; pointer-events: none; fill: #526979; opacity: .42; stroke: #8fa8b6; stroke-width: 2px; }
 .wire-layer { position: absolute; inset: 0; width: 1380px; height: 900px; z-index: 3; pointer-events: none; }
 .wire-layer g { pointer-events: none; }
 .wire-layer .reference-wires { pointer-events: none; opacity: .75; }
 .visible-wire { filter: drop-shadow(0 1px 2px #000); }
-.circuit-part { position: absolute; width: 108px; min-height: 84px; background: #e8f1fa; color: #16243b; border: 2px solid #6a9dc5; border-radius: 8px; z-index: 2; }
-.part-title { cursor: grab; padding: 4px 6px; min-height: 44px; font-weight: 700; font-size: 13px; line-height: 1.2; text-align: center; }
-.terminal { position: absolute; width: 18px; height: 18px; border-radius: 50%; padding: 0; background: #f8c857; border: 2px solid #9f6320; z-index: 4; }
-.terminal span { position: absolute; top: -2px; left: 17px; background: #e8f1fa; color: #16243b; border-radius: 3px; padding: 0 2px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.terminal:nth-child(odd) span { left: auto; right: 17px; }
-.terminal.active { outline: 4px solid #52e1d3; }
-.terminal.focused-terminal { outline: 5px solid #f7d473; box-shadow: 0 0 0 8px #f7d47355; }
+.circuit-part { position: absolute; width: 108px; min-height: 84px; background: #dce7eb; color: #102b38; border: 2px solid #88a9b7; border-radius: 8px; z-index: 2; box-shadow: 0 4px 10px #0006; overflow: visible; }
+.part-title { position: relative; z-index: 2; cursor: grab; padding: 4px 6px; min-height: 38px; font-weight: 700; font-size: 12px; line-height: 1.2; text-align: center; background: #e6f0f2db; border-radius: 6px 6px 0 0; }
+.device-graphic { position: absolute; left: 7px; top: 34px; width: 90px; height: 48px; pointer-events: none; filter: drop-shadow(0 2px 2px #0004); }
+.circuit-part.contactor .device-graphic, .circuit-part.overload .device-graphic, .circuit-part.terminal-block .device-graphic, .circuit-part.motor .device-graphic { top: 52px; height: 70px; }
+.terminal { position: absolute; width: 26px; height: 26px; border: 0; border-radius: 50%; padding: 0; background: transparent; z-index: 4; touch-action: none; }
+.terminal::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: #f8c857; border: 2px solid #9f6320; }
+.terminal span { position: absolute; top: 2px; left: 25px; background: #e8f1fa; color: #16243b; border-radius: 3px; padding: 0 2px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.terminal:nth-child(odd) span { left: auto; right: 25px; }
+.terminal.active::before { outline: 4px solid #52e1d3; }
+.terminal.focused-terminal::before { outline: 5px solid #f7d473; box-shadow: 0 0 0 8px #f7d47355; }
 .wire-list { margin-top: 8px; display: flex; gap: 5px; overflow-x: auto; min-height: 38px; }
 .wire-list button { flex: 0 0 auto; font-size: 12px; padding: 4px 7px; }
 .wire-view-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #f7d473; font-size: 14px; }
@@ -82,6 +101,8 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .task-panel > p { font-size: 14px; }
 .segment-description { color: #c6d5e8; font-size: 13px; line-height: 1.5; }
 .motor-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; }
+.liquid-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; }
+.safety-note { padding: 8px; border-left: 3px solid #f7d473; background: #332f25; line-height: 1.5; }
 .restart { width: 100%; margin-top: 14px; }
 .practice-footer { grid-column: 1 / -1; padding: 8px 14px; border-radius: 8px; background: #1b283d; font-size: 14px; color: #bfd0e6; }
 .practice-footer strong { color: #ffb0a9; }
@@ -117,5 +138,13 @@ aside, section { background: #1b283d; border: 1px solid #344761; border-radius: 
 .theory-history strong { color: #ffb0a9; }
 .theory-records { border-top: 1px solid #3c5574; margin-top: 20px; padding-top: 4px; color: #c6d5e8; }
 .theory-records ol { padding-left: 22px; line-height: 1.8; }
+.exam-page { width: min(100%, 1080px); }
+.exam-jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; }
+.exam-jump button { min-width: 41px; padding: 7px; font-size: 13px; }
+.exam-jump button.answered { background: #205f47; }
+.exam-jump button.active { border: 2px solid #f7d473; }
+.exam-jump-panel { margin-top: 12px; }
+.exam-jump-panel summary { cursor: pointer; color: #a7d5e8; }
+.exam-page .theory-source a { color: #94dcff; }
 @media(max-width: 1100px) { .app-shell { grid-template-columns: 170px minmax(420px,1fr) 230px; gap: 8px; padding: 8px; } }
 @media(max-width: 700px) { .theory-intro { display: block; } .exam-rules-grid { grid-template-columns: repeat(2,1fr); } .theory-card { padding: 16px; } .mode-nav { justify-content: flex-start; } header { align-items: flex-start; gap: 12px; flex-direction: column; } .header-meta { text-align: left; } }

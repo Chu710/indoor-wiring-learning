@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen, within } from '@testing-library/rea
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import { b11Question } from './b11/question';
-import { loadRecords } from './b11/session';
+import { loadQuestionRecords } from './practical/session';
 import { motorTheoryQuestions } from './theory/questions';
 import { loadTheoryResults } from './theory/records';
 
@@ -10,6 +10,16 @@ afterEach(cleanup);
 beforeEach(() => { window.localStorage.clear(); window.history.replaceState(null, '', '#practical'); });
 
 describe('B11 practice screen', () => {
+  it('can restore the cabinet layout without the third-party photo or clearing a draft wire', () => {
+    const wires = [{ id: 'w1', from: 'supply.A', to: 'nfb.L1', color: 'red', createdAt: 1 }];
+    window.localStorage.setItem('b11-draft-v1', JSON.stringify({ questionId: b11Question.id, startedAt: Date.now(), wires, positions: { nfb: { x: 700, y: 400 } }, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 }));
+    render(<App />);
+    expect(screen.queryByRole('img', { name: '第二題實際配線盤參考照片' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '重排箱內器材' }));
+    expect(screen.getByText('1 條線')).toBeTruthy();
+    const nfb = b11Question.parts.find((component) => component.id === 'nfb');
+    expect(screen.getByRole('button', { name: 'nfb.L1' }).closest('.circuit-part')?.getAttribute('style')).toContain(`left: ${nfb?.x}px`);
+  });
   it('reviews eight wrong answers and keeps the full quiz record unchanged', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '學科練習' }));
@@ -43,7 +53,7 @@ describe('B11 practice screen', () => {
     expect(screen.getByText('正式考試：80 題')).toBeTruthy();
     expect(screen.getByText('100 分鐘')).toBeTruthy();
     expect(screen.getByText('答對 48 題及格')).toBeTruthy();
-    expect(screen.getByText(/目前只有 8 題入門練習/)).toBeTruthy();
+    expect(screen.getByText(/可從上方切換到「80 題模擬考」/)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: '2. 6 Hz' }));
     fireEvent.click(screen.getByRole('button', { name: '確認答案' }));
     fireEvent.click(screen.getByRole('button', { name: '下一題' }));
@@ -107,7 +117,7 @@ describe('B11 practice screen', () => {
     expect(screen.getByText('與內建圖面接線一致')).toBeTruthy();
     for (const name of ['正轉', '測試互鎖', '停止', '反轉', '過載跳脫']) fireEvent.click(screen.getByRole('button', { name }));
     expect(screen.getByText('圖面練習完成')).toBeTruthy();
-    expect(loadRecords(window.localStorage)).toHaveLength(1);
+    expect(loadQuestionRecords(window.localStorage, 'b11-q2-internal-wireway-v5')).toHaveLength(1);
   });
   it('loads the reference through the UI and runs the wired controls', () => {
     render(<App />);
