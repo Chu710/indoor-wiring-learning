@@ -1,9 +1,6 @@
-export interface WiringSegment {
-  id: string;
-  title: string;
-  description: string;
-  netIndexes: number[];
-}
+import type { WiringSegment } from '../practical/types';
+
+export type { WiringSegment } from '../practical/types';
 
 export const wiringSegments: WiringSegment[] = [
   { id: 'power', title: '第一段：電源分配', description: '先完成電源、無熔絲開關、兩個控制保險絲及接觸器主接點的進線。', netIndexes: [0, 1, 2, 3, 10, 11] },
