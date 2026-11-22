@@ -12,10 +12,10 @@ describe('practical question registry', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('keeps the unfinished first question hidden from navigation', () => {
+  it('exposes the implemented first question to navigation', () => {
     expect(getPracticalQuestion('b11-q1-liquid-level')).toMatchObject({
       number: 1,
-      available: false,
+      available: true,
       simulatorKind: 'liquid-level',
     });
   });
