@@ -1,6 +1,15 @@
 import type { Wire } from './types';
 import type { MotorAction } from './simulate';
 
+export {
+  appendQuestionRecord,
+  clearQuestionDraft,
+  draftKey as questionDraftKey,
+  loadQuestionDraft,
+  loadQuestionRecords,
+  saveQuestionDraft,
+} from '../practical/session';
+
 const draftKey = 'b11-draft-v1';
 const recordsKey = 'b11-records-v1';
 const corruptDraftKey = 'b11-draft-corrupt-v1';
