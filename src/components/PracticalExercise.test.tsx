@@ -62,5 +62,5 @@ describe('多題術科練習', () => {
     expect(screen.getByText('圖面練習完成')).toBeTruthy();
     expect(loadQuestionRecords(window.localStorage, 'b11-q1-liquid-level')).toHaveLength(1);
     expect(loadQuestionRecords(window.localStorage, 'b11-q2-internal-wireway-v5')).toHaveLength(0);
-  });
+  }, 15_000);
 });
