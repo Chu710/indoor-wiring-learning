@@ -18,10 +18,11 @@ describe('學習成果頁', () => {
     expect(screen.getByText('80 題模擬考')).toBeTruthy();
     expect(screen.getByText('第一題｜液位控制')).toBeTruthy();
     expect(screen.getByText('第二題｜馬達正反轉')).toBeTruthy();
+    expect(screen.getByText('第三題｜故障警報')).toBeTruthy();
     expect(screen.getByRole('button', { name: '匯出學習成果 CSV' })).toHaveProperty('disabled', true);
   });
 
-  it('彙整學科、模擬考與兩題術科紀錄', () => {
+  it('彙整學科、模擬考與三題術科紀錄', () => {
     appendTheoryResult(window.localStorage, {
       source: '007003A13', startedAt: 1_000, completedAt: 61_000,
       answers: Array(8).fill(0), score: 7, total: 8,
@@ -43,6 +44,12 @@ describe('學習成果頁', () => {
       errorCounts: { danger: 0, structure: 1, function: 1 }, hintCount: 1,
       simulationResults: ['forward', 'stop', 'reverse'],
     });
+    appendQuestionRecord(window.localStorage, {
+      questionId: 'b11-q3-motor-fault-alarm', startedAt: 30_000, completedAt: 270_000,
+      completed: true, wires: [], positions: {}, checkCount: 2,
+      errorCounts: { danger: 0, structure: 0, function: 1 }, hintCount: 3,
+      simulationResults: ['start', 'stop', 'trip', 'silence', 'reset'],
+    });
 
     render(<ResultsDashboard />);
 
@@ -50,10 +57,13 @@ describe('學習成果頁', () => {
     expect(screen.getByText('最高 65 分｜及格 1 次')).toBeTruthy();
     expect(screen.getByText('最快 2 分鐘｜完成 1 次')).toBeTruthy();
     expect(screen.getByText('最快 3 分鐘｜完成 1 次')).toBeTruthy();
+    expect(screen.getByText('最快 4 分鐘｜完成 1 次')).toBeTruthy();
     expect(screen.getByText('錯誤 3 次')).toBeTruthy();
     expect(screen.getByText('提示 2 次')).toBeTruthy();
     expect(screen.getByText('錯誤 2 次')).toBeTruthy();
     expect(screen.getByText('提示 1 次')).toBeTruthy();
+    expect(screen.getByText('錯誤 1 次')).toBeTruthy();
+    expect(screen.getByText('提示 3 次')).toBeTruthy();
     expect(screen.getByRole('button', { name: '匯出學習成果 CSV' })).toHaveProperty('disabled', false);
   });
 });

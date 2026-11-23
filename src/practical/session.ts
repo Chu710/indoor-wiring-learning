@@ -4,7 +4,7 @@ const recordsKey = 'practical-records-v2';
 const legacyDraftKey = 'b11-draft-v1';
 const legacyRecordsKey = 'b11-records-v1';
 const q2Aliases = new Set(['b11-q2-internal-wireway-v5', 'b11-q2-motor-control', 'b11-q2-control-circuit-v2', 'b11-q2-schematic-v3']);
-const knownQuestionIds = new Set<PracticalQuestionId>(['b11-q1-liquid-level', 'b11-q2-internal-wireway-v5']);
+const knownQuestionIds = new Set<PracticalQuestionId>(['b11-q1-liquid-level', 'b11-q2-internal-wireway-v5', 'b11-q3-motor-fault-alarm']);
 
 export interface Draft {
   questionId: PracticalQuestionId;
@@ -49,6 +49,7 @@ function parseRecord(value: unknown): (Omit<PracticeRecord, 'questionId'> & { qu
 
 function normalizeQuestionId(value: string): PracticalQuestionId | null {
   if (value === 'b11-q1-liquid-level') return value;
+  if (value === 'b11-q3-motor-fault-alarm') return value;
   if (q2Aliases.has(value)) return 'b11-q2-internal-wireway-v5';
   return null;
 }

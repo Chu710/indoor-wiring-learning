@@ -2,12 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { getPracticalQuestion, practicalQuestions } from './questions';
 
 describe('practical question registry', () => {
-  it('registers both B11 exercises with stable unique IDs', () => {
+  it('registers all three B11 exercises with stable unique IDs', () => {
     const ids = practicalQuestions.map((question) => question.id);
 
     expect(ids).toEqual([
       'b11-q1-liquid-level',
       'b11-q2-internal-wireway-v5',
+      'b11-q3-motor-fault-alarm',
     ]);
     expect(new Set(ids).size).toBe(ids.length);
   });

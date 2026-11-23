@@ -8,9 +8,11 @@ import {
 } from '../practical/session';
 import { initialPracticalSimulation, nextPracticalSimulation } from '../practical/simulation';
 import type { LiquidLevelAction } from '../practical/q1/simulate';
+import type { FaultAlarmAction } from '../practical/q3/simulate';
 import type { Diagnostic, PracticalQuestion, PracticalQuestionId, Wire, WireColor } from '../practical/types';
 import { validatePracticalWiring } from '../practical/validate';
 import { LiquidLevelTaskPanel } from './LiquidLevelTaskPanel';
+import { FaultAlarmTaskPanel } from './FaultAlarmTaskPanel';
 import { PartsPanel } from './PartsPanel';
 import { TaskPanel } from './TaskPanel';
 import { Workspace } from './Workspace';
@@ -67,7 +69,9 @@ export function PracticalExercise({ questionId }: { questionId: PracticalQuestio
     if (completed || !checked || diagnostics.length) return;
     const required = simulation.kind === 'liquid-level'
       ? ['start', 'stop', 'automatic', 'tank-low', 'tank-high', 'source-dry', 'silence', 'trip', 'reset']
-      : ['forward', 'stop', 'reverse', 'interlock', 'trip'];
+      : simulation.kind === 'fault-alarm'
+        ? ['start', 'stop', 'trip', 'silence', 'reset']
+        : ['forward', 'stop', 'reverse', 'interlock', 'trip'];
     if (!required.every((action) => simulation.state.tested.includes(action as never))) return;
     const positions = Object.fromEntries(question.parts.map((part) => [part.id, { x: part.x, y: part.y }]));
     const record = { questionId, startedAt, wires, positions, checkCount, errorCounts, hintCount, completedAt: Date.now(), completed: true, simulationResults: simulation.state.tested };
@@ -115,7 +119,7 @@ export function PracticalExercise({ questionId }: { questionId: PracticalQuestio
     })));
     setWires(referenceWires); setAnswerVisible(true); setSegmentComplete(false); resetCheck();
   };
-  const runAction = (action: MotorAction | LiquidLevelAction) => setSimulation((state) => nextPracticalSimulation(state, action, question, wires));
+  const runAction = (action: MotorAction | LiquidLevelAction | FaultAlarmAction) => setSimulation((state) => nextPracticalSimulation(state, action, question, wires));
 
   const panelProps = {
     diagnostics, checked, segmentChecked, hintLevel, color, answerVisible, segment,
@@ -133,12 +137,14 @@ export function PracticalExercise({ questionId }: { questionId: PracticalQuestio
     <div className="practical-summary" aria-label="術科練習資訊">
       <strong>{question.title}</strong><span>{completed ? '圖面練習完成' : '圖面練習中'}</span><time>{Math.floor(elapsed / 60).toString().padStart(2, '0')}:{(elapsed % 60).toString().padStart(2, '0')}</time>
     </div>
-    <details className="official-schematic"><summary>查看官方 B11 第{question.number === 1 ? '一' : '二'}題電路圖</summary><p>來源：{question.schematic.sourceLabel}。端子號為圖面教學標示，實體配線仍須核對器材與指導教師。</p><img src={question.schematic.src} alt={question.schematic.alt} /></details>
+    <details className="official-schematic"><summary>查看官方 B11 第{({ 1: '一', 2: '二', 3: '三' } as const)[question.number]}題電路圖</summary><p>來源：{question.schematic.sourceLabel}。端子號為圖面教學標示，實體配線仍須核對器材與指導教師。</p><img src={question.schematic.src} alt={question.schematic.alt} /></details>
     <PartsPanel question={question} />
     <Workspace question={question} wires={wires} color={color} answerVisible={answerVisible} onAddWire={addWire} onRemoveWire={(id) => { setWires((existing) => existing.filter((wire) => wire.id !== id)); setSegmentComplete(false); resetCheck(); }} onMovePart={(id, x, y) => setQuestion((existing) => ({ ...existing, parts: existing.parts.map((part) => part.id === id ? { ...part, x, y } : part) }))} onApplyLayout={() => setQuestion(positionedQuestion(baseQuestion))} />
     {simulation.kind === 'liquid-level'
       ? <LiquidLevelTaskPanel {...panelProps} state={simulation.state} onAction={(action) => runAction(action)} />
-      : <TaskPanel {...panelProps} motor={simulation.state} onMotorAction={(action) => runAction(action)} />}
+      : simulation.kind === 'fault-alarm'
+        ? <FaultAlarmTaskPanel {...panelProps} state={simulation.state} onAction={(action) => runAction(action)} />
+        : <TaskPanel {...panelProps} motor={simulation.state} onMotorAction={(action) => runAction(action)} />}
     <div className="practice-footer" role="status">檢查 {checkCount} 次 · 錯誤 {errorCounts.danger + errorCounts.structure + errorCounts.function} 次 · 提示 {hintCount} 次 · 已完成 {historyCount} 次{storageWarning && <strong>　草稿內容損壞或題號不符，已從空白練習開始；本機儲存也可能無法保留。</strong>}</div>
   </>;
 }

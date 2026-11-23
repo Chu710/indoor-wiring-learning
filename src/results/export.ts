@@ -11,6 +11,7 @@ interface ResultsExportData {
 const practicalNames = {
   'b11-q1-liquid-level': '第一題｜液位控制',
   'b11-q2-internal-wireway-v5': '第二題｜馬達正反轉',
+  'b11-q3-motor-fault-alarm': '第三題｜故障警報',
 } as const;
 
 function durationLabel(startedAt: number, completedAt: number) {

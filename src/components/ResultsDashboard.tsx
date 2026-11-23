@@ -8,6 +8,7 @@ import { createResultsCsv, downloadResultsCsv } from '../results/export';
 const questionNames = {
   'b11-q1-liquid-level': '第一題｜液位控制',
   'b11-q2-internal-wireway-v5': '第二題｜馬達正反轉',
+  'b11-q3-motor-fault-alarm': '第三題｜故障警報',
 } as const;
 
 function durationLabel(startedAt: number, completedAt: number) {
@@ -28,7 +29,8 @@ export function ResultsDashboard() {
   const exams = storage ? loadExamResults(storage) : [];
   const first = storage ? loadQuestionRecords(storage, 'b11-q1-liquid-level') : [];
   const second = storage ? loadQuestionRecords(storage, 'b11-q2-internal-wireway-v5') : [];
-  const practical = [...first, ...second].sort((a, b) => b.completedAt - a.completedAt);
+  const third = storage ? loadQuestionRecords(storage, 'b11-q3-motor-fault-alarm') : [];
+  const practical = [...first, ...second, ...third].sort((a, b) => b.completedAt - a.completedAt);
   const bestTheory = theory.length ? Math.max(...theory.map((item) => item.score)) : null;
   const bestExam = exams.length ? Math.max(...exams.map((item) => item.score)) : null;
   const passedExams = exams.filter((item) => item.correct >= 48).length;
@@ -77,6 +79,11 @@ export function ResultsDashboard() {
       <article className="result-summary-card">
         <span>術科</span><h3>第二題｜馬達正反轉</h3>
         <strong>{practicalSummary(second)}</strong>
+        <small>依完成紀錄計算最快時間</small>
+      </article>
+      <article className="result-summary-card">
+        <span>術科</span><h3>第三題｜故障警報</h3>
+        <strong>{practicalSummary(third)}</strong>
         <small>依完成紀錄計算最快時間</small>
       </article>
     </div>

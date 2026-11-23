@@ -63,4 +63,20 @@ describe('多題術科練習', () => {
     expect(loadQuestionRecords(window.localStorage, 'b11-q1-liquid-level')).toHaveLength(1);
     expect(loadQuestionRecords(window.localStorage, 'b11-q2-internal-wireway-v5')).toHaveLength(0);
   }, 15_000);
+
+  it('可切換第三題並完成啟停、過載警報、消音與復歸', () => {
+    render(<Harness />);
+    fireEvent.click(screen.getByRole('button', { name: '第三題｜故障警報' }));
+    expect(screen.getByText(/B11 第三題｜電動機故障警報控制/)).toBeTruthy();
+    expect(screen.getByText((_, element) => element?.tagName === 'SUMMARY' && element.textContent === '查看官方 B11 第三題電路圖')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: '載入圖面參考接線（測試用）' }));
+    fireEvent.click(screen.getByRole('button', { name: '檢查圖面接線' }));
+    expect(screen.getByText('與內建圖面接線一致')).toBeTruthy();
+    for (const name of ['PB1 啟動', 'PB2 停止', 'PB1 啟動', '過載跳脫', 'PB3 警報停止', '積熱電驛復歸']) {
+      fireEvent.click(screen.getByRole('button', { name }));
+    }
+    expect(screen.getByText('圖面練習完成')).toBeTruthy();
+    expect(loadQuestionRecords(window.localStorage, 'b11-q3-motor-fault-alarm')).toHaveLength(1);
+  }, 15_000);
 });

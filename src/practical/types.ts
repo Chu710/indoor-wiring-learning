@@ -51,8 +51,8 @@ export interface WiringSegment {
   netIndexes: number[];
 }
 
-export type PracticalQuestionId = 'b11-q1-liquid-level' | 'b11-q2-internal-wireway-v5';
-export type SimulatorKind = 'liquid-level' | 'reverse-motor';
+export type PracticalQuestionId = 'b11-q1-liquid-level' | 'b11-q2-internal-wireway-v5' | 'b11-q3-motor-fault-alarm';
+export type SimulatorKind = 'liquid-level' | 'reverse-motor' | 'fault-alarm';
 
 export interface FunctionalRule {
   id: string;
@@ -64,7 +64,7 @@ export interface FunctionalRule {
 
 export interface PracticalQuestion extends WiringQuestion {
   id: PracticalQuestionId;
-  number: 1 | 2;
+  number: 1 | 2 | 3;
   available: boolean;
   simulatorKind: SimulatorKind;
   schematic: { src: string; alt: string; sourceLabel: string };

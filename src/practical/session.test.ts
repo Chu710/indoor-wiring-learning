@@ -11,6 +11,7 @@ import {
 
 const q1 = 'b11-q1-liquid-level' as const;
 const q2 = 'b11-q2-internal-wireway-v5' as const;
+const q3 = 'b11-q3-motor-fault-alarm' as const;
 
 const makeStorage = (): Storage => {
   const values = new Map<string, string>();
@@ -23,25 +24,30 @@ const draft = (questionId: PracticalQuestionId, startedAt: number) => ({
 });
 
 describe('per-question practical sessions', () => {
-  it('stores, restores, and clears two drafts independently', () => {
+  it('stores, restores, and clears three drafts independently', () => {
     const storage = makeStorage();
     expect(saveQuestionDraft(storage, draft(q1, 100))).toBe(true);
     expect(saveQuestionDraft(storage, draft(q2, 200))).toBe(true);
+    expect(saveQuestionDraft(storage, draft(q3, 300))).toBe(true);
 
     expect(loadQuestionDraft(storage, q1)?.startedAt).toBe(100);
     expect(loadQuestionDraft(storage, q2)?.startedAt).toBe(200);
+    expect(loadQuestionDraft(storage, q3)?.startedAt).toBe(300);
     clearQuestionDraft(storage, q1);
     expect(loadQuestionDraft(storage, q1)).toBeNull();
     expect(loadQuestionDraft(storage, q2)?.startedAt).toBe(200);
+    expect(loadQuestionDraft(storage, q3)?.startedAt).toBe(300);
   });
 
   it('filters completed records by question', () => {
     const storage = makeStorage();
     expect(appendQuestionRecord(storage, { ...draft(q1, 1), completedAt: 10, completed: true, simulationResults: ['manual'] })).toBe(true);
     expect(appendQuestionRecord(storage, { ...draft(q2, 2), completedAt: 20, completed: true, simulationResults: ['forward'] })).toBe(true);
+    expect(appendQuestionRecord(storage, { ...draft(q3, 3), completedAt: 30, completed: true, simulationResults: ['trip'] })).toBe(true);
 
     expect(loadQuestionRecords(storage, q1).map((record) => record.completedAt)).toEqual([10]);
     expect(loadQuestionRecords(storage, q2).map((record) => record.completedAt)).toEqual([20]);
+    expect(loadQuestionRecords(storage, q3).map((record) => record.completedAt)).toEqual([30]);
   });
 
   it('migrates a valid historical second-question draft without deleting the original', () => {

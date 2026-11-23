@@ -24,6 +24,11 @@ describe('學習成果 CSV', () => {
       completed: true, wires: [], positions: {}, checkCount: 3,
       errorCounts: { danger: 1, structure: 2, function: 0 }, hintCount: 2,
       simulationResults: ['manual', 'auto'],
+    }, {
+      questionId: 'b11-q3-motor-fault-alarm', startedAt: 20_000, completedAt: 260_000,
+      completed: true, wires: [], positions: {}, checkCount: 2,
+      errorCounts: { danger: 0, structure: 0, function: 1 }, hintCount: 3,
+      simulationResults: ['start', 'stop', 'trip', 'silence', 'reset'],
     }];
 
     const csv = createResultsCsv({ theory, exams, practical });
@@ -36,6 +41,7 @@ describe('學習成果 CSV', () => {
     expect(csv).toContain('學科,80 題模擬考');
     expect(csv).toContain('65 分,52,及格');
     expect(csv).toContain('術科,第一題｜液位控制');
+    expect(csv).toContain('術科,第三題｜故障警報');
     expect(csv).toContain('完成,2 分鐘,3,3,2');
   });
 

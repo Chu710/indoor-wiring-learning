@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { b11Question1 } from './q1/question';
 import { b11Question2 } from './q2';
+import { b11Question3 } from './q3/question';
 import { initialPracticalSimulation, nextPracticalSimulation } from './simulation';
 import type { PracticalQuestion, Wire } from './types';
 
@@ -20,5 +21,11 @@ describe('practical simulation dispatch', () => {
     const initial = initialPracticalSimulation(b11Question2);
     const running = nextPracticalSimulation(initial, 'forward', b11Question2, reference(b11Question2));
     expect(running).toMatchObject({ kind: 'reverse-motor', state: { direction: 'forward', mcf: true, mcr: false } });
+  });
+
+  it('dispatches the third question to the fault-alarm simulator', () => {
+    const initial = initialPracticalSimulation(b11Question3);
+    const running = nextPracticalSimulation(initial, 'start', b11Question3, reference(b11Question3));
+    expect(running).toMatchObject({ kind: 'fault-alarm', state: { motor: true, contactor: true } });
   });
 });
