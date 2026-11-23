@@ -1,0 +1,29 @@
+// @vitest-environment node
+
+import { describe, expect, it } from 'vitest';
+import viteConfig from '../../vite.config';
+
+function resolveConfig(command: 'serve' | 'build') {
+  if (typeof viteConfig === 'function') {
+    return viteConfig({
+      command,
+      mode: 'test',
+      isSsrBuild: false,
+      isPreview: false,
+    });
+  }
+
+  return viteConfig;
+}
+
+describe('GitHub Pages deployment path', () => {
+  it('keeps the local development server at the root path', () => {
+    expect(resolveConfig('serve')).toMatchObject({ base: '/' });
+  });
+
+  it('builds assets under the repository subpath', () => {
+    expect(resolveConfig('build')).toMatchObject({
+      base: '/indoor-wiring-learning/',
+    });
+  });
+});
