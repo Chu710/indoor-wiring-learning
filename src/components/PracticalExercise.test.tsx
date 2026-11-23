@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { draftKey, loadQuestionDraft } from '../practical/session';
+import { draftKey, loadQuestionDraft, loadQuestionRecords } from '../practical/session';
 import type { PracticalQuestionId } from '../practical/types';
 import { PracticalExercise } from './PracticalExercise';
 import { PracticalQuestionNav } from './PracticalQuestionNav';
@@ -48,5 +48,19 @@ describe('多題術科練習', () => {
     render(<PracticalExercise questionId="b11-q1-liquid-level" />);
     expect(screen.getByText('0 條線')).toBeTruthy();
     expect(screen.getByText(/草稿內容損壞或題號不符/)).toBeTruthy();
+  });
+
+  it('完成第一題接線後可測試手動、自動、缺水警報與過載復歸', () => {
+    render(<PracticalExercise questionId="b11-q1-liquid-level" />);
+    fireEvent.click(screen.getByRole('button', { name: '載入圖面參考接線（測試用）' }));
+    fireEvent.click(screen.getByRole('button', { name: '檢查圖面接線' }));
+    expect(screen.getByText('與內建圖面接線一致')).toBeTruthy();
+
+    for (const name of ['PB1 啟動', 'PB2 停止', '自動模式', '水槽低水位', '水槽高水位', '給水源缺水', 'PB3 警報停止', '過載跳脫', '積熱電驛復歸']) {
+      fireEvent.click(screen.getByRole('button', { name }));
+    }
+    expect(screen.getByText('圖面練習完成')).toBeTruthy();
+    expect(loadQuestionRecords(window.localStorage, 'b11-q1-liquid-level')).toHaveLength(1);
+    expect(loadQuestionRecords(window.localStorage, 'b11-q2-internal-wireway-v5')).toHaveLength(0);
   });
 });

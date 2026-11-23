@@ -10,6 +10,12 @@ afterEach(cleanup);
 beforeEach(() => { window.localStorage.clear(); window.history.replaceState(null, '', '#practical'); });
 
 describe('B11 practice screen', () => {
+  it('opens the learning results dashboard from the main navigation', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '學習成果' }));
+    expect(screen.getByRole('heading', { name: '學習成果總覽' })).toBeTruthy();
+    expect(window.location.hash).toBe('#results');
+  });
   it('can restore the cabinet layout without the third-party photo or clearing a draft wire', () => {
     const wires = [{ id: 'w1', from: 'supply.A', to: 'nfb.L1', color: 'red', createdAt: 1 }];
     window.localStorage.setItem('b11-draft-v1', JSON.stringify({ questionId: b11Question.id, startedAt: Date.now(), wires, positions: { nfb: { x: 700, y: 400 } }, checkCount: 0, errorCounts: { danger: 0, structure: 0, function: 0 }, hintCount: 0 }));

@@ -45,6 +45,7 @@ export function TaskPanel(props: Props) {
     <div className="actions"><button className="primary" onClick={() => props.onCheckSegment?.()}>檢查本段接線</button>{props.segmentComplete && segmentNumber < segmentCount && <button onClick={() => props.onNextSegment?.()}>進入下一段</button>}</div>
     <h3>電線顏色</h3>
     <div className="color-picker">{colors.map((item) => <button key={item.id} className={color === item.id ? 'chosen' : ''} onClick={() => props.onColor(item.id)} aria-label={`${item.name}色線`} aria-pressed={color === item.id}><i style={{ background: item.id }} />{item.name}</button>)}</div>
+    <p className="segment-description">綠線只接保護接地；其他迴路可用紅、白、黑線分開追蹤。</p>
     <div className="actions"><button className="primary" onClick={props.onCheck}>檢查圖面接線</button><button onClick={props.onClear}>清除全部電線</button>{props.onLoadReference && <button onClick={props.onLoadReference}>載入圖面參考接線（測試用）</button>}</div>
     {(checked || props.segmentChecked) && <div className={`check-result ${issue?.kind ?? 'success'}`} role="status">
       {issue ? <><strong>{issue.kind === 'danger' ? '危險接線' : issue.kind === 'structure' ? '接線待修正' : '控制功能待修正'}</strong><p>{issue.message}</p>{hintLevel >= 1 && <p>位置：{issue.area}</p>}</> : checked ? <><strong>與內建圖面接線一致</strong><p>可操作下方虛擬通電測試；實體器材的端子與安全仍需另行核對。</p></> : <><strong>本段接線完成</strong><p>可進入下一段；虛擬通電測試須先檢查整題接線。</p></>}

@@ -29,6 +29,10 @@ describe('wiring diagnostics', () => {
     const wrongColor = validateWiring(b11Question, [{ ...wire('earth.PE', 'tb5.1'), color: 'red' }]);
     expect(wrongColor.some((issue) => issue.message.includes('綠色'))).toBe(true);
   });
+  it('reserves green for protective-earth connections', () => {
+    const result = validateWiring(b11Question, [{ ...wire('supply.A', 'nfb.L1'), color: 'green' }]);
+    expect(result.some((issue) => issue.kind === 'danger' && issue.message.includes('綠色僅用於保護接地'))).toBe(true);
+  });
   it('rejects an extra connection between distinct nets', () => {
     expect(validateWiring(b11Question, [...reference, wire('mcf.A1', 'mcr.A1')]).length).toBeGreaterThan(0);
   });

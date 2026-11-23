@@ -1,0 +1,1122 @@
+[
+  {
+    "id": "007003A13-p2-q4",
+    "sourceCode": "007003A13",
+    "sourceNumber": 4,
+    "sourcePage": 2,
+    "prompt": "設計圖上註明 1/100 是表示實物為圖上尺寸之多少倍？",
+    "choices": [
+      "100",
+      "10",
+      "1/10",
+      "1/100"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p6-q5",
+    "sourceCode": "007003A13",
+    "sourceNumber": 5,
+    "sourcePage": 6,
+    "prompt": "在對金屬之工作物加工時，下列何不得加潤滑油？",
+    "choices": [
+      "鉸牙",
+      "銼削",
+      "鋸削",
+      "鑽孔"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p7-q26",
+    "sourceCode": "007003A13",
+    "sourceNumber": 26,
+    "sourcePage": 7,
+    "prompt": "開口扳手大小之標稱尺寸通常以下列何表示？",
+    "choices": [
+      "口徑",
+      "長短",
+      "重量",
+      "厚薄"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p8-q2",
+    "sourceCode": "007003A13",
+    "sourceNumber": 2,
+    "sourcePage": 8,
+    "prompt": "測量交流電之每秒變化週期之儀表，為下列何？",
+    "choices": [
+      "電壓表",
+      "電流表",
+      "瓦特表",
+      "頻率表"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p9-q22",
+    "sourceCode": "007003A13",
+    "sourceNumber": 22,
+    "sourcePage": 9,
+    "prompt": "量測電阻值可選用下列哪種儀表？",
+    "choices": [
+      "電壓表",
+      "電流表",
+      "瓦時表",
+      "歐姆表"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p10-q30",
+    "sourceCode": "007003A13",
+    "sourceNumber": 30,
+    "sourcePage": 10,
+    "prompt": "比流器之負擔係以下列何作表示？",
+    "choices": [
+      "伏特",
+      "安培",
+      "伏安",
+      "瓦特"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p11-q56",
+    "sourceCode": "007003A13",
+    "sourceNumber": 56,
+    "sourcePage": 11,
+    "prompt": "電功率之直接測量可選用下列何種儀表？",
+    "choices": [
+      "電壓表",
+      "電流表",
+      "瓦特表",
+      "頻率表"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p12-q12",
+    "sourceCode": "007003A13",
+    "sourceNumber": 12,
+    "sourcePage": 12,
+    "prompt": "建築物內配線以採用下列何種導線為宜？",
+    "choices": [
+      "絕緣軟銅線",
+      "絕緣硬銅線",
+      "鋼心鋁線",
+      "鐵線"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p13-q24",
+    "sourceCode": "007003A13",
+    "sourceNumber": 24,
+    "sourcePage": 13,
+    "prompt": "選擇導線線徑大小之條件，下列何錯誤？",
+    "choices": [
+      "安培容量",
+      "電壓降",
+      "周溫",
+      "相序"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p14-q5",
+    "sourceCode": "007003A13",
+    "sourceNumber": 5,
+    "sourcePage": 14,
+    "prompt": "分路額定超過多少安培之燈用軌道，其照明燈具應有個別之過電流保護？",
+    "choices": [
+      "15",
+      "20",
+      "30",
+      "40"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p15-q7",
+    "sourceCode": "007003A13",
+    "sourceNumber": 7,
+    "sourcePage": 15,
+    "prompt": "燈用軌道單節多少米以下，應有兩處支撐？",
+    "choices": [
+      "0.6",
+      "0.9",
+      "1.2",
+      "1.5"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p16-q27",
+    "sourceCode": "007003A13",
+    "sourceNumber": 27,
+    "sourcePage": 16,
+    "prompt": "吊線支撐配線係指使用吊線支撐何物之暴露配線支撐系統？",
+    "choices": [
+      "電線",
+      "電纜",
+      "金屬管",
+      "非金屬管"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p17-q7",
+    "sourceCode": "007003A13",
+    "sourceNumber": 7,
+    "sourcePage": 17,
+    "prompt": "裝金屬可撓導線管時應按何種接地種類施工？",
+    "choices": [
+      "特種",
+      "第一種",
+      "第二種",
+      "第三種"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p18-q29",
+    "sourceCode": "007003A13",
+    "sourceNumber": 29,
+    "sourcePage": 18,
+    "prompt": "金屬可撓導線管配管長度不可超過多少米？",
+    "choices": [
+      "1.5",
+      "1.8",
+      "2.4",
+      "3.6"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p19-q11",
+    "sourceCode": "007003A13",
+    "sourceNumber": 11,
+    "sourcePage": 19,
+    "prompt": "積熱型熔斷器及積熱電驛可作為導線之何種保護？",
+    "choices": [
+      "過載",
+      "短路",
+      "漏電",
+      "逆相"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p20-q30",
+    "sourceCode": "007003A13",
+    "sourceNumber": 30,
+    "sourcePage": 20,
+    "prompt": "配電盤箱體若採用鋼板，其厚度應在多少毫米以上？",
+    "choices": [
+      "1.2",
+      "1.6",
+      "2.0",
+      "2.5"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p21-q2",
+    "sourceCode": "007003A13",
+    "sourceNumber": 2,
+    "sourcePage": 21,
+    "prompt": "低壓交連 PE 電線之絕緣物最高容許溫度為多少℃？",
+    "choices": [
+      "90",
+      "80",
+      "75",
+      "60"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p22-q23",
+    "sourceCode": "007003A13",
+    "sourceNumber": 23,
+    "sourcePage": 22,
+    "prompt": "住宅場所，浴室插座出線口應設有一個以上多少安培以上專用分路供電？",
+    "choices": [
+      "15",
+      "20",
+      "30",
+      "50"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p23-q19",
+    "sourceCode": "007003A13",
+    "sourceNumber": 19,
+    "sourcePage": 23,
+    "prompt": "學校一般照明其負載計算，為每平方米多少伏安？",
+    "choices": [
+      "10",
+      "20",
+      "30",
+      "40"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p24-q29",
+    "sourceCode": "007003A13",
+    "sourceNumber": 29,
+    "sourcePage": 24,
+    "prompt": "分路供電給連續負載，不得大於分路額定百分之多少？",
+    "choices": [
+      "60",
+      "70",
+      "80",
+      "90"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p25-q20",
+    "sourceCode": "007003A13",
+    "sourceNumber": 20,
+    "sourcePage": 25,
+    "prompt": "感應電動機之起動轉矩與下列何成正比？",
+    "choices": [
+      "電壓平方",
+      "電流",
+      "電壓",
+      "功率因數"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p26-q34",
+    "sourceCode": "007003A13",
+    "sourceNumber": 34,
+    "sourcePage": 26,
+    "prompt": "電動機操作器之額定應以下列何表示？",
+    "choices": [
+      "安培數",
+      "馬力數",
+      "伏特數",
+      "電阻數"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p27-q45",
+    "sourceCode": "007003A13",
+    "sourceNumber": 45,
+    "sourcePage": 27,
+    "prompt": "下列何不是蔽極式電動機的特性？",
+    "choices": [
+      "構造簡單",
+      "價格便宜",
+      "起動轉矩大",
+      "效率低"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p28-q5",
+    "sourceCode": "007003A13",
+    "sourceNumber": 5,
+    "sourcePage": 28,
+    "prompt": "常用之電熨斗，其功率因數為多少％？",
+    "choices": [
+      "60",
+      "70",
+      "80",
+      "100"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p29-q15",
+    "sourceCode": "007003A13",
+    "sourceNumber": 15,
+    "sourcePage": 29,
+    "prompt": "1BTU 的熱量等於多少卡？",
+    "choices": [
+      "4.2",
+      "252",
+      "460",
+      "746"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p30-q4",
+    "sourceCode": "007003A13",
+    "sourceNumber": 4,
+    "sourcePage": 30,
+    "prompt": "低壓電容器之容量以改善功率因數至多少％為原則？",
+    "choices": [
+      "80",
+      "85",
+      "90",
+      "95"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p31-q15",
+    "sourceCode": "007003A13",
+    "sourceNumber": 15,
+    "sourcePage": 31,
+    "prompt": "低壓電容器之容量輸出，如電源電壓降低 10 ％，減少輸出容量多少％？",
+    "choices": [
+      "10",
+      "15",
+      "19",
+      "25"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p32-q6",
+    "sourceCode": "007003A13",
+    "sourceNumber": 6,
+    "sourcePage": 32,
+    "prompt": "內線系統接地與低壓用電設備接地應採用何種接地？",
+    "choices": [
+      "特種",
+      "第一種",
+      "第二種",
+      "第三種"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p33-q35",
+    "sourceCode": "007003A13",
+    "sourceNumber": 35,
+    "sourcePage": 33,
+    "prompt": "銅棒之接地電極直徑不得小於多少毫米？",
+    "choices": [
+      "11",
+      "13",
+      "15",
+      "19"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p34-q6",
+    "sourceCode": "007003A13",
+    "sourceNumber": 6,
+    "sourcePage": 34,
+    "prompt": "特別低壓工程之變壓器二次側電壓應在多少伏特以下？",
+    "choices": [
+      "30",
+      "100",
+      "250",
+      "300"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p35-q11",
+    "sourceCode": "007003A13",
+    "sourceNumber": 11,
+    "sourcePage": 35,
+    "prompt": "下列哪不是漏電斷路器的主要規格？",
+    "choices": [
+      "靈敏度電流",
+      "動作時間",
+      "啟斷容量",
+      "相序"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p36-q14",
+    "sourceCode": "007003A13",
+    "sourceNumber": 14,
+    "sourcePage": 36,
+    "prompt": "中靈敏度高速型漏電斷路器，其動作時間應在多少秒以內？",
+    "choices": [
+      "0.05",
+      "0.1",
+      "0.15",
+      "0.2"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p37-q31",
+    "sourceCode": "007003A13",
+    "sourceNumber": 31,
+    "sourcePage": 37,
+    "prompt": "過電流保護裝置若裝於濕處所，其封閉箱體應屬？",
+    "choices": [
+      "防爆型",
+      "一般型",
+      "防水型",
+      "不必額外考"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p38-q3",
+    "sourceCode": "007003A13",
+    "sourceNumber": 3,
+    "sourcePage": 38,
+    "prompt": "交流 110 伏抽水機送電後馬達不轉而發燙，其不可能的原因為？",
+    "choices": [
+      "起動線圈及運轉線圈均斷線",
+      "起動線圈斷線",
+      "運轉線圈斷線",
+      "馬達之軸承機械故障"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p40-q6",
+    "sourceCode": "007003A13",
+    "sourceNumber": 6,
+    "sourcePage": 40,
+    "prompt": "目前台電公司供電之頻率為多少赫（ Hz ）？",
+    "choices": [
+      "50",
+      "55",
+      "60",
+      "70"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p41-q8",
+    "sourceCode": "007003A13",
+    "sourceNumber": 8,
+    "sourcePage": 41,
+    "prompt": "需量契約用戶之需量時段，台電公司目前採用多少分鐘？",
+    "choices": [
+      "15",
+      "30",
+      "45",
+      "60"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p6-q1",
+    "sourceCode": "007003A13",
+    "sourceNumber": 1,
+    "sourcePage": 6,
+    "prompt": "導線壓接時，需使用下列何種工具？",
+    "choices": [
+      "多功能鉗",
+      "電工鉗",
+      "尖嘴鉗",
+      "具有棘輪功能壓接鉗"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p7-q17",
+    "sourceCode": "007003A13",
+    "sourceNumber": 17,
+    "sourcePage": 7,
+    "prompt": "手提電鑽的規格是以什麼表示？",
+    "choices": [
+      "重量",
+      "電流",
+      "轉數",
+      "使用鑽頭的最大直徑"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p8-q5",
+    "sourceCode": "007003A13",
+    "sourceNumber": 5,
+    "sourcePage": 8,
+    "prompt": "指針型電表面板上設鏡面（刻度下方成扇形弧狀）是為了避免下列何種誤差？",
+    "choices": [
+      "人為",
+      "儀器",
+      "環境",
+      "電路"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p9-q16",
+    "sourceCode": "007003A13",
+    "sourceNumber": 16,
+    "sourcePage": 9,
+    "prompt": "直流電壓表宜採用下列何以擴大測量範圍？",
+    "choices": [
+      "比流器",
+      "分流器",
+      "倍增器",
+      "比壓器"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p10-q44",
+    "sourceCode": "007003A13",
+    "sourceNumber": 44,
+    "sourcePage": 10,
+    "prompt": "量測電流值可選用下列何種儀表？",
+    "choices": [
+      "伏特表",
+      "安培表",
+      "瓦特表",
+      "電度表"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p11-q58",
+    "sourceCode": "007003A13",
+    "sourceNumber": 58,
+    "sourcePage": 11,
+    "prompt": "交流電壓表宜採用下列何以擴大測量範圍？",
+    "choices": [
+      "比流器",
+      "分流器",
+      "倍增器",
+      "比壓器"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p12-q7",
+    "sourceCode": "007003A13",
+    "sourceNumber": 7,
+    "sourcePage": 12,
+    "prompt": "一般低壓 PVC 導線，其絕緣物之最高容許溫度為多少℃？",
+    "choices": [
+      "50",
+      "55",
+      "60",
+      "65"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p13-q27",
+    "sourceCode": "007003A13",
+    "sourceNumber": 27,
+    "sourcePage": 13,
+    "prompt": "低壓 PE 導線，其絕緣物之最高容許溫度為多少℃？",
+    "choices": [
+      "60",
+      "75",
+      "80",
+      "90"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p14-q3",
+    "sourceCode": "007003A13",
+    "sourceNumber": 3,
+    "sourcePage": 14,
+    "prompt": "燈用軌道之分路負載依每 300 毫米軌道長度以多少伏安計算？",
+    "choices": [
+      "600",
+      "180",
+      "120",
+      "90"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p15-q18",
+    "sourceCode": "007003A13",
+    "sourceNumber": 18,
+    "sourcePage": 15,
+    "prompt": "金屬電纜架搭接至接地系統應採用多少平方毫米搭接導線？",
+    "choices": [
+      "14",
+      "22",
+      "30",
+      "38"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p16-q3",
+    "sourceCode": "007003A13",
+    "sourceNumber": 3,
+    "sourcePage": 16,
+    "prompt": "金屬可撓導線管以明管敷設時，距出線盒多少毫米以內應裝設護管鐵固定？",
+    "choices": [
+      "10",
+      "20",
+      "30",
+      "50"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p17-q17",
+    "sourceCode": "007003A13",
+    "sourceNumber": 17,
+    "sourcePage": 17,
+    "prompt": "EMT 管不得配裝於超過多少伏特之高壓配管工程？",
+    "choices": [
+      "600",
+      "750",
+      "1000",
+      "2000"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p18-q30",
+    "sourceCode": "007003A13",
+    "sourceNumber": 30,
+    "sourcePage": 18,
+    "prompt": "不同材質金屬導線管因為何種效應而需避免互相接觸？",
+    "choices": [
+      "熱效應",
+      "電磁效應",
+      "電蝕效應",
+      "電容效應"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p19-q13",
+    "sourceCode": "007003A13",
+    "sourceNumber": 13,
+    "sourcePage": 19,
+    "prompt": "低壓用戶總開關僅供應一分路，其用戶總開關額定值不得低於多少安培？",
+    "choices": [
+      "15",
+      "20",
+      "30",
+      "50"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p20-q16",
+    "sourceCode": "007003A13",
+    "sourceNumber": 16,
+    "sourcePage": 20,
+    "prompt": "配電盤或配電箱若裝設於濕場所或室外，應屬何種型？",
+    "choices": [
+      "防震型",
+      "防水型",
+      "防爆型",
+      "防塵型"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p21-q1",
+    "sourceCode": "007003A13",
+    "sourceNumber": 1,
+    "sourcePage": 21,
+    "prompt": "低壓電纜之安培容量，不隨下列何種因素改變？",
+    "choices": [
+      "絕緣物材質",
+      "週溫",
+      "線徑大小",
+      "導線長短"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p22-q22",
+    "sourceCode": "007003A13",
+    "sourceNumber": 22,
+    "sourcePage": 22,
+    "prompt": "住宅場所，洗衣機或乾衣機用出線口應設有一個以上多少安培專用分路供電？",
+    "choices": [
+      "15",
+      "20",
+      "30",
+      "50"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p23-q16",
+    "sourceCode": "007003A13",
+    "sourceNumber": 16,
+    "sourcePage": 23,
+    "prompt": "辦公廳一般照明其負載計算，為每平方米多少伏安？",
+    "choices": [
+      "10",
+      "20",
+      "30",
+      "40"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p24-q33",
+    "sourceCode": "007003A13",
+    "sourceNumber": 33,
+    "sourcePage": 24,
+    "prompt": "下列哪種手捺開關之裝置應使電路閉合或啟斷時有明顯之標誌？",
+    "choices": [
+      "單切",
+      "雙切",
+      "三路",
+      "四路"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p25-q10",
+    "sourceCode": "007003A13",
+    "sourceNumber": 10,
+    "sourcePage": 25,
+    "prompt": "E 級絕緣感應電動機可容許最高溫度為多少℃？",
+    "choices": [
+      "95",
+      "105",
+      "120",
+      "135"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p26-q30",
+    "sourceCode": "007003A13",
+    "sourceNumber": 30,
+    "sourcePage": 26,
+    "prompt": "三相鼠籠式感應電動機可認為是下列何種電動機？",
+    "choices": [
+      "恆速",
+      "變速",
+      "調速",
+      "介於恆速與調速"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "007003A13-p27-q50",
+    "sourceCode": "007003A13",
+    "sourceNumber": 50,
+    "sourcePage": 27,
+    "prompt": "電梯之昇降體內所使用之電燈及電具之額定電壓不得超過多少伏特？",
+    "choices": [
+      "150",
+      "220",
+      "300",
+      "600"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "007003A13-p28-q63",
+    "sourceCode": "007003A13",
+    "sourceNumber": 63,
+    "sourcePage": 28,
+    "prompt": "冷氣機若運轉之負載不變，假設供電電壓比額定電壓低時，其負載電流？",
+    "choices": [
+      "降低",
+      "升高",
+      "先減後增",
+      "先增後減"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p29-q13",
+    "sourceCode": "007003A13",
+    "sourceNumber": 13,
+    "sourcePage": 29,
+    "prompt": "1500W 之電熱器，若將其電熱絲剪去 20 ％時，其消耗電力為原來之幾倍？",
+    "choices": [
+      "1.2",
+      "1.25",
+      "1.6",
+      "2.4"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p30-q1",
+    "sourceCode": "007003A13",
+    "sourceNumber": 1,
+    "sourcePage": 30,
+    "prompt": "低壓電容器隔離設備之額定不得小於電容器額定電流之多少倍？",
+    "choices": [
+      "1.25",
+      "1.35",
+      "1.5",
+      "2.5"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "007003A13-p31-q19",
+    "sourceCode": "007003A13",
+    "sourceNumber": 19,
+    "sourcePage": 31,
+    "prompt": "用戶低壓電容器最理想的裝位是在何處？",
+    "choices": [
+      "主幹線匯流排上",
+      "各分路線上",
+      "電設備幹線上",
+      "接近各用電設備處"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p32-q15",
+    "sourceCode": "007003A13",
+    "sourceNumber": 15,
+    "sourcePage": 32,
+    "prompt": "接地環埋設於施工地面下之深度應超過多少毫米？",
+    "choices": [
+      "150",
+      "240",
+      "600",
+      "750"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "007003A13-p33-q28",
+    "sourceCode": "007003A13",
+    "sourceNumber": 28,
+    "sourcePage": 33,
+    "prompt": "接地線以使用何種材質之導線為原則？",
+    "choices": [
+      "鐵線",
+      "銅線",
+      "鋁線",
+      "鋼心鋁線"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "900060A12-p6-q63",
+    "sourceCode": "900060A12",
+    "sourceNumber": 63,
+    "sourcePage": 6,
+    "prompt": "下列何非屬職場不法侵害類型？",
+    "choices": [
+      "肢體暴力",
+      "語言暴力",
+      "家庭暴力",
+      "性騷擾"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900060A12-p6-q60",
+    "sourceCode": "900060A12",
+    "sourceNumber": 60,
+    "sourcePage": 6,
+    "prompt": "下列何種防護具較能消減噪音對聽力的危害？",
+    "choices": [
+      "棉花球",
+      "耳塞",
+      "耳罩",
+      "碎布球"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900060A12-p6-q68",
+    "sourceCode": "900060A12",
+    "sourceNumber": 68,
+    "sourcePage": 6,
+    "prompt": "石綿最可能引起下列何種疾病？",
+    "choices": [
+      "白指症",
+      "心臟病",
+      "間皮細胞瘤",
+      "巴金森氏症"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900060A12-p3-q24",
+    "sourceCode": "900060A12",
+    "sourceNumber": 24,
+    "sourcePage": 3,
+    "prompt": "我國中央勞動業務主管機關為下列何？",
+    "choices": [
+      "內政部",
+      "勞工保險局",
+      "勞動部",
+      "經濟部"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900070A11-p12-q94",
+    "sourceCode": "900070A11",
+    "sourceNumber": 94,
+    "sourcePage": 12,
+    "prompt": "目前菸害防制法規範，「不可販賣菸品」給未滿幾歲的人？",
+    "choices": [
+      "20",
+      "19",
+      "18",
+      "17"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "900070A11-p8-q68",
+    "sourceCode": "900070A11",
+    "sourceNumber": 68,
+    "sourcePage": 8,
+    "prompt": "下列何不是個人資料保護法所定義之個人資料？",
+    "choices": [
+      "身分證號碼",
+      "最高學歷",
+      "死亡者姓名",
+      "護照號碼"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900070A11-p6-q47",
+    "sourceCode": "900070A11",
+    "sourceNumber": 47,
+    "sourcePage": 6,
+    "prompt": "檢舉人應以何種方式檢舉貪污瀆職始能核給獎金？",
+    "choices": [
+      "匿名",
+      "委託他人檢舉",
+      "以真實姓名檢舉",
+      "以他人名義檢舉"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900070A11-p8-q66",
+    "sourceCode": "900070A11",
+    "sourceNumber": 66,
+    "sourcePage": 8,
+    "prompt": "下列何不是菸害防制法之立法目的？",
+    "choices": [
+      "防制菸害",
+      "保護未成年免於菸害",
+      "保護孕婦免於菸害",
+      "促進菸品的使用"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "900080A18-p4-q41",
+    "sourceCode": "900080A18",
+    "sourceNumber": 41,
+    "sourcePage": 4,
+    "prompt": "下列何不是藉由蚊蟲傳染的疾病？",
+    "choices": [
+      "日本腦炎",
+      "瘧疾",
+      "登革熱",
+      "痢疾"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "900080A18-p7-q80",
+    "sourceCode": "900080A18",
+    "sourceNumber": 80,
+    "sourcePage": 7,
+    "prompt": "水污染防治法中所稱地面水體不包括下列何？",
+    "choices": [
+      "河川",
+      "海洋",
+      "灌溉渠道",
+      "地下水"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "900080A18-p4-q44",
+    "sourceCode": "900080A18",
+    "sourceNumber": 44,
+    "sourcePage": 4,
+    "prompt": "下列哪一是我們在家中常見的環境衛生用藥？",
+    "choices": [
+      "體香劑",
+      "殺蟲劑",
+      "洗滌劑",
+      "乾燥劑"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "900080A18-p3-q15",
+    "sourceCode": "900080A18",
+    "sourceNumber": 15,
+    "sourcePage": 3,
+    "prompt": "「酸雨」定義為雨水酸鹼值達多少以下時稱之？",
+    "choices": [
+      "5.0",
+      "6.0",
+      "7.0",
+      "8.0"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "900090A14-p2-q3",
+    "sourceCode": "900090A14",
+    "sourceNumber": 3,
+    "sourcePage": 2,
+    "prompt": "下列何為國內能源消費最大部門？",
+    "choices": [
+      "服務業",
+      "住宅",
+      "運輸",
+      "工業"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "900090A14-p2-q10",
+    "sourceCode": "900090A14",
+    "sourceNumber": 10,
+    "sourcePage": 2,
+    "prompt": "下列何「不是」全球暖化帶來的影響？",
+    "choices": [
+      "洪水",
+      "熱浪",
+      "地震",
+      "旱災"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "900090A14-p3-q21",
+    "sourceCode": "900090A14",
+    "sourceNumber": 21,
+    "sourcePage": 3,
+    "prompt": "下列何「不是」目前台灣主要的發電方式？",
+    "choices": [
+      "燃煤",
+      "燃氣",
+      "水力",
+      "地熱"
+    ],
+    "answer": 3
+  },
+  {
+    "id": "900090A14-p9-q94",
+    "sourceCode": "900090A14",
+    "sourceNumber": 94,
+    "sourcePage": 9,
+    "prompt": "為了取得良好的水資源，通常在河川的哪一段興建水庫？",
+    "choices": [
+      "上游",
+      "中游",
+      "下游",
+      "下游出口"
+    ],
+    "answer": 0
+  }
+]
